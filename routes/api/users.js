@@ -10,8 +10,7 @@ const User = require('../../models/User');
 const checkUser = require('../../middleware/checkUser');
 
 // Register User 
-router.post(
-   '/', checkUser('name', 'email', 'password'), async (req, res) => {
+router.post('/', checkUser(), async (req, res) => {
    const errors = validationResult(req); // returns an array of objects
    !errors.isEmpty() && res.status(400).json({ errors: errors.array() });
 
@@ -48,11 +47,11 @@ router.post(
             id: newUser.id
          }
       };
+      // receive token with user.id payload
       jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 }, (err, token) => {
          if(err) throw err;
          res.json({ token });
       });
-      // res.send('User registered!');
    }
    catch(err) {
       console.error(err);
