@@ -3,9 +3,9 @@ const app = express();
 const connectDB = require('./config/db');
 const PORT = process.env.PORT || 5000;
 
-// connect to MongoDB
+// Connect to MongoDB
 connectDB();
-// body parser
+// execute body parser
 app.use(express.json({ extended: false }));
 
 // routes

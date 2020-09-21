@@ -21,7 +21,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 // POST api/auth
-// authenticate user and get token
+// authenticate user and get token (log in)
 router.post('/', 
    [
       check('email', 'Please include a valid email.').isEmail(),
@@ -51,7 +51,7 @@ router.post('/',
             id: user.id
          }
       };
-      // receive token with user.id payload
+      // receive token with user.id payload and send token (available in header)
       jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 }, (err, token) => {
          if(err) throw err;
          res.json({ token });
