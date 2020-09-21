@@ -10,7 +10,7 @@ const EducationSchema = new Schema({
       type: String, 
       required: true 
    },
-   location: { 
+   fieldOfStudy: { 
       type: String, 
       required: true 
    },

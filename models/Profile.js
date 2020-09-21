@@ -22,9 +22,9 @@ const ProfileSchema = new Schema({
    },
    bio: String,
    githubUsername: String,
-   experience: [ExperienceSchema],
-   education: [EducationSchema],
-   social: [SocialSchema],
+   experience: [{ ExperienceSchema }],
+   education: [{ EducationSchema }],
+   social: { SocialSchema },
    date: {
       type: Date,
       default: Date.now
