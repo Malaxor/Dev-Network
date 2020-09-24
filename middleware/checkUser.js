@@ -1,6 +1,6 @@
 const { check } = require('express-validator');
 
-const checkUser = (next) => {
+const checkUser = () => {
    return [
       check('name', 'Name is required')
       .not()

@@ -9,7 +9,9 @@ const config = require('config');
 const User = require('../../models/User');
 const checkUser = require('../../middleware/checkUser');
 
-// Register User 
+// @route POST api/user
+// &desc Register User 
+// &access Public
 router.post('/', checkUser(), async (req, res) => {
    const errors = validationResult(req); // returns an array of objects
    !errors.isEmpty() && res.status(400).json({ errors: errors.array() });
