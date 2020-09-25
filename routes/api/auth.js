@@ -30,37 +30,38 @@ router.post('/',
       check('password', 'Password is required').exists()
    ], 
    async (req, res) => {
-   const errors = validationResult(req); // returns an array of objects
-   !errors.isEmpty() && res.status(400).json({ errors: errors.array() });
+      const errors = validationResult(req); // returns an array of objects
+      !errors.isEmpty() && res.status(400).json({ errors: errors.array() });
 
-   const { email, password } = req.body;
-   
-   try {
-      // Check if user exists 
-      const user = await User.findOne({ email });
-      if(!user) {
-         return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
-      }
+      const { email, password } = req.body;
       
-      const isMatch = await bcrypt.compare(password, user.password);
-      if(!isMatch) {
-         return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
-      }
-      // json webtoken
-      const payload = {
-         user: {
-            id: user.id
+      try {
+         // Check if user exists 
+         const user = await User.findOne({ email });
+         if(!user) {
+            return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
          }
-      };
-      // receive token with user.id payload and send token 
-      jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 }, (err, token) => {
-         if(err) throw err;
-         res.json({ token });
-      });
+         
+         const isMatch = await bcrypt.compare(password, user.password);
+         if(!isMatch) {
+            return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
+         }
+         // json webtoken
+         const payload = {
+            user: {
+               id: user.id
+            }
+         };
+         // receive token with user.id payload and send token 
+         jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 }, (err, token) => {
+            if(err) throw err;
+            res.json({ token });
+         });
+      }
+      catch(err) {
+         console.error(err);
+         res.status(500).send('Server error');
+      }
    }
-   catch(err) {
-      console.error(err);
-      res.status(500).send('Server error');
-   }
-});
+);
 module.exports = router;

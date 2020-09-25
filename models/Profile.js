@@ -24,7 +24,7 @@ const ProfileSchema = new Schema({
    githubUsername: String,
    experience: [ExperienceSchema],
    education: [EducationSchema],
-   social: {SocialSchema},
+   social: SocialSchema,
    date: {
       type: Date,
       default: Date.now

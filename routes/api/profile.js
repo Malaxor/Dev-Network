@@ -38,12 +38,11 @@ async(req, res) => {
    if(!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
    }
-
-   const { skills, youtube, twitter, facebook, linkedin, instagram } = req.body;
+   const { youtube, twitter, facebook, linkedin, instagram } = req.body.social;
    const profileFields = {
       ...req.body,
       user: req.user.id,
-      skills: skills.split(',').map(skill => skill.trim()), // remove white space from both sides of the string
+      skills: req.body.skills.split(',').map(skill => skill.trim()), // remove white space from both sides of the string
       social: { youtube, twitter, facebook, linkedin, instagram }
    };
 
@@ -56,14 +55,16 @@ async(req, res) => {
             { $set: profileFields },
             { new: true }
          );
+         return res.json(profile);
       }
       // create profile
-      return res.json(profile);
+      const newProfile = new Profile(profileFields);
+      await newProfile.save();
+      res.json(newProfile);
    }
    catch(err) {
       console.error(err);
       res.status(500).send('Server Error');
    }
 });
-
 module.exports = router;
