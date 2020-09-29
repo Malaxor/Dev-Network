@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 // execute body parser
 app.use(express.json({ extended: false }));
-
 // routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
