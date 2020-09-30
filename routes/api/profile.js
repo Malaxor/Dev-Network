@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
+const { findOneAndDelete } = require('../../models/Profile');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
@@ -45,7 +46,7 @@ async (req, res) => {
       skills: req.body.skills.split(',').map(skill => skill.trim()), // remove white space from both sides of the string
       social: { ...req.body.social }
    };
-
+   
    try {
       let profile = await Profile.findOne({ user: req.user.id });
       // update profile
@@ -80,19 +81,43 @@ router.get('/', async (req, res) => {
       res.status(500).send('Server Error');
    }
 });
-// @route GET api/profile/user/:user.id
+// @route GET api/profile/user/:user_id
 // &desc Get user profile by id
 // &access Public
 router.get('/user/:user_id', async (req, res) => {
    try {
       const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar']);
+
       if(!profile) {
-         return res.status(400).json({ msg: 'There is no profile for this user '});
+         return res.status(400).json({ msg: 'Profile not found' });
       }
       res.json(profile);
    }
    catch(err) {
       console.error(err.message);
+      if(err.kind === 'ObjectId') {
+         return res.status(400).json({ msg: 'Profile not found' });
+      }
+      res.status(500).send('Server Error');
+   }
+});
+// @route DELETE api/profile/user
+// &desc Get user profile and user 
+// &access Private
+router.delete('/', auth, async (req, res) => {
+   try {
+      // remove profile
+      await Profile.findOneAndDelete({ user: req.user.id });
+      // remove user
+      const user = await User.findOneAndDelete({ _id: req.user.id });
+
+      return res.json({ msg: 'User deleted' });
+   }
+   catch(err) {
+      console.error(err.message);
+      if(err.kind === 'ObjectId') {
+         return res.status(400).json({ msg: 'Profile not found' });
+      }
       res.status(500).send('Server Error');
    }
 });
