@@ -1,6 +1,6 @@
 const { check } = require('express-validator');
 
-const checkUser = () => {
+module.exports = () => {
    return [
       check('name', 'Name is required')
       .not()
@@ -13,4 +13,3 @@ const checkUser = () => {
       .isLength({ min: 6 })
    ]
 }
-module.exports = checkUser;
