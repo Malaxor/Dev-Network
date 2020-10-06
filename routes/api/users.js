@@ -5,14 +5,13 @@ const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-
 const User = require('../../models/User');
-const checkUser = require('../../middleware/checkUser');
+const validateUser = require('../../middleware/validateUser');
 
 // @route POST api/user
 // &desc Register User 
 // &access Public
-router.post('/', checkUser(), async (req, res) => {
+router.post('/', validateUser(), async (req, res) => {
    const errors = validationResult(req); // returns an array of objects
    !errors.isEmpty() && res.status(400).json({ errors: errors.array() });
 

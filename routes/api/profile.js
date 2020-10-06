@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+const validateExperience = require('../../middleware/validateExperience');
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
@@ -42,7 +43,7 @@ async (req, res) => {
    const profileFields = {
       ...req.body,
       user: req.user.id,
-      skills: req.body.skills.split(',').map(skill => skill.trim()), // remove white space from both sides of the string
+      skills: req.body.skills.split(',').map(skill => skill.trim()),
       social: { ...req.body.social }
    };
    
@@ -61,6 +62,27 @@ async (req, res) => {
       const newProfile = new Profile(profileFields);
       await newProfile.save();
       res.json(newProfile);
+   }
+   catch(err) {
+      console.error(err);
+      res.status(500).send('Server Error');
+   }
+});
+// @route PUT api/profile/experience
+// &desc Add work experience to profile
+// &access Private
+router.put('/experience', auth, validateExperience(), async (req, res) => {
+   const errors = validationResult(req);
+   if(!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+   }
+   const exp = { ...req.body };
+
+   try {
+      const profile = await Profile.findOne({ user: req.user.id });
+      profile.experience.unshift(exp);
+      await profile.save();
+      res.json(profile);
    }
    catch(err) {
       console.error(err);

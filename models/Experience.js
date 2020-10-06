@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ExperienceSchema = new Schema({
-   tile: { 
+   title: { 
       type: String, 
       required: true 
    },
@@ -10,10 +10,7 @@ const ExperienceSchema = new Schema({
       type: String, 
       required: true 
    },
-   location: { 
-      type: String, 
-      required: true 
-   },
+   location: String,
    from: { 
       type: String, 
       required: true 
