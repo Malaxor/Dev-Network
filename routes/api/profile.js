@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const validateExperience = require('../../middleware/validateExperience');
+const { validateExperience, validateEducation } = require('../../middleware');
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-// @route GET api/profile/me
+// @route GET /api/profile/me
 // &desc Get logged in user's profile
 // &access Private
 router.get('/me', auth, async (req, res) => { 
@@ -23,7 +23,7 @@ router.get('/me', auth, async (req, res) => {
       res.status(500).send('Server error');
    }
 });
-// @route POST api/profile
+// @route POST /api/profile
 // &desc Create or update user profile
 // &access Private
 router.post('/', 
@@ -68,7 +68,7 @@ async (req, res) => {
       res.status(500).send('Server Error');
    }
 });
-// @route PUT api/profile/experience
+// @route PUT /api/profile/experience
 // &desc Add work experience to profile
 // &access Private
 router.put('/experience', auth, validateExperience(), async (req, res) => {
@@ -89,7 +89,7 @@ router.put('/experience', auth, validateExperience(), async (req, res) => {
       res.status(500).send('Server Error');
    }
 });
-// @route DELETE api/profile/experience/:exp_id
+// @route DELETE /api/profile/experience/:exp_id
 // &desc Delete profile experience
 // &access Public
 router.delete('/experience/:exp_id', auth, async (req, res) => {
@@ -104,7 +104,43 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
       res.status(500).send('Server Error');
    }
 });
-// @route GET api/profile
+// @route PUT api/profile/education
+// &desc Add work experience to profile
+// &access Private
+router.put('/education', auth, validateEducation(), async (req, res) => {
+   const errors = validationResult(req);
+   if(!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+   }
+   const edu = { ...req.body };
+
+   try {
+      const profile = await Profile.findOne({ user: req.user.id });
+      profile.education.unshift(edu);
+      await profile.save();
+      res.json(profile);
+   }
+   catch(err) {
+      console.error(err);
+      res.status(500).send('Server Error');
+   }
+});
+// @route DELETE api/profile/experience/:exp_id
+// &desc Delete profile experience
+// &access Public
+router.delete('/education/:edu_id', auth, async (req, res) => {
+   try {
+      const profile = await Profile.findOne({ user: req.user.id });
+      profile.education = profile.education.filter(edu => edu.id !== req.params.edu_id); 
+      await profile.save();
+      res.json(profile);
+   }
+   catch(err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+   }
+});
+// @route GET /api/profile
 // &desc Get all profiles
 // &access Public
 router.get('/', async (req, res) => {
@@ -117,7 +153,7 @@ router.get('/', async (req, res) => {
       res.status(500).send('Server Error');
    }
 });
-// @route GET api/profile/user/:user_id
+// @route GET /api/profile/user/:user_id
 // &desc Get user profile by id
 // &access Public
 router.get('/user/:user_id', async (req, res) => {
@@ -137,7 +173,7 @@ router.get('/user/:user_id', async (req, res) => {
       res.status(500).send('Server Error');
    }
 });
-// @route DELETE api/profile/user
+// @route DELETE /api/profile/user
 // &desc delete profile and user 
 // &access Private
 router.delete('/', auth, async (req, res) => {

@@ -7,7 +7,7 @@ const config = require('config');
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
-// @route GET api/auth
+// @route GET /api/auth
 // &desc 
 // &access private
 router.get('/', auth, async (req, res) => {
@@ -20,7 +20,7 @@ router.get('/', auth, async (req, res) => {
       res.status(500).send('Server error.');
    }
 });
-// &route POST api/auth
+// &route POST /api/auth
 // &desc authenticate user and get token (log in)
 // &access public
 router.post('/', 
