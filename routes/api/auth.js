@@ -20,7 +20,6 @@ router.get('/', auth, async (req, res) => {
       res.status(500).send('Server error.');
    }
 });
-
 // &route POST api/auth
 // &desc authenticate user and get token (log in)
 // &access public
@@ -41,12 +40,11 @@ router.post('/',
          if(!user) {
             return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
          }
-         
          const isMatch = await bcrypt.compare(password, user.password);
          if(!isMatch) {
             return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
          }
-         // json webtoken
+         // future webtoken
          const payload = {
             user: {
                id: user.id
