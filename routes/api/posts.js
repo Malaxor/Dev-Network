@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const Post = require('../../models/Post');
@@ -84,11 +85,12 @@ router.delete('/:id', auth, async (req, res) => {
          return res.status(401).json({ msg: 'User not authorized.' });
       }
       await post.remove();
+      res.json({ msg: 'Post removed.' });
    }
    catch(error) {
-      if(err.kind === 'ObjectId') {
-         return res.status(400).json({ msg: 'Post not found...' });
-      }
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+         return res.status(400).json({ msg: 'Invalid ID.' });
+      }   
       res.status(500).send('Server error!');
    }
 });
