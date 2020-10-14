@@ -86,7 +86,7 @@ router.delete('/:id', auth, async (req, res) => {
       res.status(500).send('Server error.');
    }
 });
-// @route PUT /api/posts/like/:id
+// @route PUT /api/posts/like/:post_id
 // @desc Like a post
 // @access Private
 router.put('/like/:post_id', auth, async(req, res) => {
@@ -96,6 +96,24 @@ router.put('/like/:post_id', auth, async(req, res) => {
          return res.status(400).json({ msg: "You can only like a post once." });
       }
       post.likes.push({ user: req.user.id });
+      await post.save();
+      res.send(post.likes);
+   }
+   catch(err) {
+      console.log(err.message);
+      res.status(500).send('Server error.');
+   }
+});
+// @route PUT /api/posts/like/:post_id
+// @desc Unlike a post
+// @access Private
+router.put('/unlike/:post_id', auth, async(req, res) => {
+   try {
+      const post = await Post.findById(req.params.post_id);
+      if(post.likes.filter(like => like.user.equals(req.user.id)).length === 0) {
+         return res.status(400).json({ msg: "You have not liked this post." });
+      }
+      post.likes = post.likes.filter(like => like.user.toString() !== req.user.id);
       await post.save();
       res.send(post.likes);
    }

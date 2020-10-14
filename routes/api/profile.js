@@ -94,7 +94,7 @@ router.put('/experience', auth, validateExperience(), async (req, res) => {
 router.delete('/experience/:exp_id', auth, async (req, res) => {
    try {
       const profile = await Profile.findOne({ user: req.user.id });
-      profile.experience = profile.experience.filter(exp => exp.id !== req.params.exp_id); 
+      profile.experience = profile.experience.filter(exp => exp.id.toString() !== req.params.exp_id); 
       await profile.save();
       res.json(profile);
    }
@@ -130,7 +130,7 @@ router.put('/education', auth, validateEducation(), async (req, res) => {
 router.delete('/education/:edu_id', auth, async (req, res) => {
    try {
       const profile = await Profile.findOne({ user: req.user.id });
-      profile.education = profile.education.filter(edu => edu.id !== req.params.edu_id); 
+      profile.education = profile.education.filter(edu => edu.id.toString() !== req.params.edu_id); 
       await profile.save();
       res.json(profile);
    }
