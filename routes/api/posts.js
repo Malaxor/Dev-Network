@@ -3,15 +3,14 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const auth = require('../../middleware/auth');
 const { validationResult } = require('express-validator');
-const { validatePost } = require('../../middleware');
+const { validatePost, validateComment } = require('../../middleware');
 const Post = require('../../models/Post');
-const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
 // @route POST /api/posts
 // @desc Create a post
 // @access Private
-router.post('/', auth, validatePost(), async (req, res) => {
+router.post('/', [ auth, validatePost() ], async (req, res) => {
    const errors = validationResult(req);
    if(!errors.isEmpty()) {
       res.status(400).send({ errors: errors.array() });
@@ -30,7 +29,7 @@ router.post('/', auth, validatePost(), async (req, res) => {
    }
    catch(err) {
       console.error(err.messag);
-      res.status(500).send('Server error.');
+      res.status(500).send('Server error');
    }
 });
 // @route GET /api/posts
@@ -42,7 +41,7 @@ router.get('/', auth, async (req, res) => {
       res.json(posts);
    }
    catch(error) {
-      res.status(500).send('Server error.');
+      res.status(500).send('Server error');
    }
 });
 // @route GET /api/posts/:id
@@ -89,7 +88,7 @@ router.delete('/:id', auth, async (req, res) => {
 // @route PUT /api/posts/like/:post_id
 // @desc Like a post
 // @access Private
-router.put('/like/:post_id', auth, async(req, res) => {
+router.put('/like/:post_id', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
       if(post.likes.filter(like => like.user.equals(req.user.id)).length === 1) {
@@ -107,7 +106,7 @@ router.put('/like/:post_id', auth, async(req, res) => {
 // @route PUT /api/posts/like/:post_id
 // @desc Unlike a post
 // @access Private
-router.put('/unlike/:post_id', auth, async(req, res) => {
+router.put('/unlike/:post_id', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
       if(post.likes.filter(like => like.user.equals(req.user.id)).length === 0) {
@@ -120,6 +119,33 @@ router.put('/unlike/:post_id', auth, async(req, res) => {
    catch(err) {
       console.log(err.message);
       res.status(500).send('Server error.');
+   }
+});
+// @route POST /api/posts/comment/:post_id
+// @desc Comment on a post
+// @access Private
+router.post('/comment/:post_id', [ auth, validateComment() ], async (req, res) => {
+   const errors = validationResult(req);
+   if(!errors.isEmpty()) {
+      res.status(400).send({ errors: errors.array() });
+   }
+
+   try {
+      const user = await User.findById(req.user.id).populate('-password -email');
+      const post = await Post.findById(req.params.post_id);
+      const newComment =  {
+         user: req.user.id,
+         author: user.name,
+         content: req.body.content,
+         avatar: user.avatar,
+      };
+      post.comments.unshift(newComment);
+      await post.save();
+      res.json(post.comments);
+   }
+   catch(err) {
+      console.error(err.messag);
+      res.status(500).send('Server error');
    }
 });
 module.exports = router;

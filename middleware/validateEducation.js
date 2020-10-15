@@ -17,5 +17,5 @@ module.exports = () => {
       check('from', 'From date is required.')
       .not()
       .isEmpty()
-   ]
+   ];
 }

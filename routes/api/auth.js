@@ -18,13 +18,13 @@ router.get('/', auth, async (req, res) => {
    }
    catch(err) {
       console.error(err.message);
-      res.status(500).send('Server error.');
+      res.status(500).send('Server error');
    }
 });
 // &route POST /api/auth
 // &desc authenticate user and get token (log in)
 // &access public
-router.post('/', validateLogin() ,async (req, res) => {
+router.post('/', validateLogin(), async (req, res) => {
    const errors = validationResult(req); // returns an array of objects
    !errors.isEmpty() && res.status(400).json({ errors: errors.array() });
 
@@ -55,6 +55,5 @@ router.post('/', validateLogin() ,async (req, res) => {
       console.error(err);
       res.status(500).send('Server error');
    }
-}
-);
+});
 module.exports = router;
