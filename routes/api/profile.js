@@ -1,28 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 const { validateExperience, validateEducation, validateProfile } = require('../../middleware');
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-// @route GET /api/profile/me
-// &desc Get logged in user's profile
-// &access Private
-router.get('/me', auth, async (req, res) => { 
-   try {
-      const profile = await Profile.findOne({ user: req.user.id }).populate('User', ['name', 'avatar']);
 
-      if(!profile) {
-         return res.status(400).json({ msg: 'There no profile for this user.' });
-      }
-      res.json(profile);
-   }
-   catch(err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
-   }
-});
 // @route POST /api/profile
 // &desc Create or update user profile
 // &access Private
@@ -60,7 +44,7 @@ router.post('/', [ auth, validateProfile() ], async (req, res) => {
    }
 });
 // @route PUT /api/profile/experience
-// &desc Add work experience to profile
+// &desc Add experience to profile
 // &access Private
 router.put('/experience', [ auth, validateExperience() ], async (req, res) => {
    const errors = validationResult(req);
@@ -96,7 +80,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
    }
 });
 // @route PUT api/profile/education
-// &desc Add work experience to profile
+// &desc Add experience to profile
 // &access Private
 router.put('/education', [ auth, validateEducation() ], async (req, res) => {
    const errors = validationResult(req);
@@ -131,6 +115,23 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
       res.status(500).send('Server Error');
    }
 });
+// @route GET /api/profile/me
+// &desc Get logged in user's profile
+// &access Private
+router.get('/me', auth, async (req, res) => { 
+   try {
+      const profile = await Profile.findOne({ user: req.user.id }).populate('User', ['name', 'avatar']);
+
+      if(!profile) {
+         return res.status(400).json({ msg: 'There no profile for this user.' });
+      }
+      res.json(profile);
+   }
+   catch(err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+   }
+});
 // @route GET /api/profile
 // &desc Get all profiles
 // &access Public
@@ -162,7 +163,7 @@ router.get('/user/:user_id', async (req, res) => {
    }
 });
 // @route DELETE /api/profile/user
-// &desc delete profile and user 
+// &desc Delete profile and user 
 // &access Private
 router.delete('/', auth, async (req, res) => {
    try {

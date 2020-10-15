@@ -13,7 +13,7 @@ const User = require('../../models/User');
 router.post('/', [ auth, validatePost() ], async (req, res) => {
    const errors = validationResult(req);
    if(!errors.isEmpty()) {
-      res.status(400).send({ errors: errors.array() });
+      res.status(400).json({ errors: errors.array() });
    }
 
    try {
@@ -91,7 +91,7 @@ router.delete('/:id', auth, async (req, res) => {
 router.put('/like/:post_id', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
-      if(post.likes.filter(like => like.user.equals(req.user.id)).length === 1) {
+      if(post.likes.filter(like => like.user.toString() === req.user.id).length === 1) {
          return res.status(400).json({ msg: "You can only like a post once." });
       }
       post.likes.push({ user: req.user.id });
@@ -109,7 +109,7 @@ router.put('/like/:post_id', auth, async (req, res) => {
 router.put('/unlike/:post_id', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
-      if(post.likes.filter(like => like.user.equals(req.user.id)).length === 0) {
+      if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
          return res.status(400).json({ msg: "You have not liked this post." });
       }
       post.likes = post.likes.filter(like => like.user.toString() !== req.user.id);
@@ -127,11 +127,11 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
 router.post('/comment/:post_id', [ auth, validateComment() ], async (req, res) => {
    const errors = validationResult(req);
    if(!errors.isEmpty()) {
-      res.status(400).send({ errors: errors.array() });
+      res.status(400).json({ errors: errors.array() });
    }
 
    try {
-      const user = await User.findById(req.user.id).populate('-password -email');
+      const user = await User.findById(req.user.id).select('-password -email');
       const post = await Post.findById(req.params.post_id);
       const newComment =  {
          user: req.user.id,
@@ -145,6 +145,30 @@ router.post('/comment/:post_id', [ auth, validateComment() ], async (req, res) =
    }
    catch(err) {
       console.error(err.messag);
+      res.status(500).send('Server error');
+   }
+});
+// @route DELETE /api/posts/comment/:post_id/:comment_id
+// @desc Delete on a post
+// @access Private
+router.delete('/:post_id/comment/:comment_id', auth, async (req, res) => {
+   try {
+      const post = await Post.findById(req.params.post_id);
+      const comment = post.comments.find(comment => comment.id === req.params.comment_id);
+      // does comment exist?
+      if(!comment) {
+         return res.status(404).json({ msg: "Comment doesn't exist" });
+      }
+      // if the comment doesn't belong to the logged in user
+      if(comment.user.toString() !== req.user.id) {
+         return res.status(401).json({ msg: 'User not authorized' });
+      }
+      post.comments = post.comments.filter(comment => comment.id.toString() !== req.params.comment_id);
+      await post.save();
+      res.json(post.comments);
+   }
+   catch(err) {
+      console.error(err);
       res.status(500).send('Server error');
    }
 });
