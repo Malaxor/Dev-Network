@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const auth = require('../../middleware/auth');
 const { validationResult } = require('express-validator');
+const auth = require('../../middleware/auth');
 const { validatePost, validateComment } = require('../../middleware');
 const Post = require('../../models/Post');
 const User = require('../../models/User');
@@ -72,7 +72,7 @@ router.delete('/:id', auth, async (req, res) => {
          return res.status(404).json({ msg: 'Post not found...' });
       }
       // the user deleting the post must be the user who owns the post
-      if(!post.user.equals(req.user.id)) {
+      if(post.user.toString() !== req.user.id) {
          return res.status(401).json({ msg: 'User not authorized.' });
       }
       await post.remove();
@@ -148,13 +148,13 @@ router.post('/comment/:post_id', [ auth, validateComment() ], async (req, res) =
       res.status(500).send('Server error');
    }
 });
-// @route DELETE /api/posts/comment/:post_id/:comment_id
+// @route DELETE /api/posts/:post_id/comment/:comment_id
 // @desc Delete on a post
 // @access Private
 router.delete('/:post_id/comment/:comment_id', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
-      const comment = post.comments.find(comment => comment.id === req.params.comment_id);
+      const comment = post.comments.find(comment => comment.id.toString() === req.params.comment_id);
       // does comment exist?
       if(!comment) {
          return res.status(404).json({ msg: "Comment doesn't exist" });

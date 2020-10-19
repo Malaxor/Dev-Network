@@ -120,7 +120,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 // &access Private
 router.get('/me', auth, async (req, res) => { 
    try {
-      const profile = await Profile.findOne({ user: req.user.id }).populate('User', ['name', 'avatar']);
+      const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar']);
 
       if(!profile) {
          return res.status(400).json({ msg: 'There no profile for this user.' });
@@ -137,7 +137,7 @@ router.get('/me', auth, async (req, res) => {
 // &access Public
 router.get('/', async (req, res) => {
    try {
-      const profiles = await Profile.find().populate('User', ['name', 'avatar']);
+      const profiles = await Profile.find().populate('user', ['name', 'avatar']);
       res.json(profiles);
    }
    catch(err) {
@@ -150,7 +150,7 @@ router.get('/', async (req, res) => {
 // &access Public
 router.get('/user/:user_id', async (req, res) => {
    try {
-      const profile = await Profile.findOne({ user: req.params.user_id }).populate('User', ['name', 'avatar']);
+      const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar']);
 
       if(!profile) {
          return res.status(400).json({ msg: 'Profile not found' });
