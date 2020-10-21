@@ -1,0 +1,36 @@
+.btn {
+   display: inline-block; // allow top and bottom margin/padding
+   background: $light-color;
+   color: #333;
+   padding: 0.5rem 1.6rem;
+   font-size: $m-size;
+   border: none;
+   cursor: pointer;
+   margin-right: 0.8rem;
+   transition: opacity 0.2s ease-in;
+   outline: none;
+}
+.btn:hover {
+   opacity: 0.8;
+}
+.btn--primary,
+.bg--primary,
+.badge--primary,
+.alert--primary {
+   background: $primary-color;
+   color: #fff;
+}
+ .btn--light,
+ .bg--light,
+ .badge--light,
+ .alert--light {
+   background: $light-color;
+   color: #333;
+}
+.btn--dark,
+.bg--dark,
+.badge--dark,
+.alert--dark {
+  background: $dark-color;
+  color: #fff;
+}
