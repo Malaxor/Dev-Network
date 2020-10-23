@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => (
    <nav className="navbar bg--dark">
       <h1>
-         <Link to="/"><i class="fas fa-globe"></i> World Wide Devs</Link>
+         <Link to="/"><i className="fas fa-globe"></i> World Wide Devs</Link>
       </h1>
       <ul>
          <li><Link to="/profiles">Devs</Link></li>

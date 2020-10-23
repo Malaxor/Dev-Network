@@ -25,9 +25,60 @@ img {
 }
 .container {
    max-width: 1100px;
-   margin: auto;
+   margin: 9.6rem auto 4.8rem;
    overflow: hidden;
    padding: 0 3.2rem;
-   margin-top: 9.6rem;
-   margin-bottom: 4.8rem;
 }
+
+/* Padding */
+.p {
+   padding: 0.8rem;
+ }
+.p-16 {
+   padding: 1.6rem;
+}
+.p-32 {
+   padding: 3.2rem;
+}
+.p-48 {
+   padding: 4.8rem;
+}
+.py-8 {
+   padding: 0.8rem 0;
+}
+.py-16 {
+   padding: 1.6rem 0;
+}
+.py-22 {
+   padding: 2.2rem 0;
+}
+.py-48 {
+   padding: 4.8rem 0;
+}
+ 
+/* Margin */
+.m {
+   margin: 0.8rem;
+}
+.m-16 {
+   margin: 1.6rem;
+}
+.m-32 {
+   margin: 3.2rem;
+}
+.m-48 {
+   margin: 4.8rem;
+}
+.my-8 {
+   margin: 0.8rem 0;
+}
+.my-16 {
+   margin: 1.6rem 0;
+}
+.my-32 {
+   margin: 3.2rem 0;
+}
+.my-48 {
+   margin: 4.8rem 0;
+}
+ 
