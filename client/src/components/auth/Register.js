@@ -10,11 +10,13 @@ const Register = () => {
    });
    const { name, email, password, password2 } = formData;
    
-   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+   const onChange = e => {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+   }   
    const onSubmit = e => {
       e.preventDefault();
       if(password !== password2) {
-         console.log('passwords dont match');
+         console.log("passwords don't match");
       }
    }
    
@@ -41,7 +43,7 @@ const Register = () => {
                value={email}
                onChange={e => onChange(e)} 
             />
-            <small className="form-text">
+            <small className="form-smallText">
                If you want a profile image, use a
                Gravatar email.
             </small>
