@@ -39,10 +39,10 @@ const Login = () => {
                onChange={e => onChange(e)} 
             />
          </div>
-         <input type="submit" className="btn btn--primary" value="Register" />
+         <input type="submit" className="btn btn--primary" value="Log In" />
          </form>
          <p className="my-8">
-            Don't have an account? <Link to='/login'>Register</Link>
+            Don't have an account? <Link to='/register'>Register</Link>
          </p>
       </Fragment>
    );   
