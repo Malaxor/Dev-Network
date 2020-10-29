@@ -13,6 +13,13 @@
 .btn:hover {
    opacity: 0.8;
 }
+.alert {
+   padding: 1.3rem;
+   margin: 1.6rem 0;
+   opacity: 0.9;
+   background: $light-color;
+   color: #333;
+}
 .btn--primary,
 .bg--primary,
 .badge--primary,
@@ -20,10 +27,10 @@
    background: $primary-color;
    color: #fff;
 }
- .btn--light,
- .bg--light,
- .badge--light,
- .alert--light {
+.btn--light,
+.bg--light,
+.badge--light,
+.alert--light {
    background: $light-color;
    color: #333;
 }
@@ -33,4 +40,26 @@
 .alert--dark {
   background: $dark-color;
   color: #fff;
+}
+.btn--danger,
+.bg--danger,
+.badge--danger,
+.alert--danger {
+   background: $danger-color;
+   color: #fff;
+}
+.btn--success,
+.bg--success,
+.badge--success,
+.alert--success {
+   background: $success-color;
+   color: #fff;
+}
+.btn--white,
+.bg--white,
+.badge--white,
+.alert--white {
+   background: #fff;
+   color: #333;
+   border: #ccc solid 1px;
 }
