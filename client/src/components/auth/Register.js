@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 
-const Register = (props) => {
+const Register = props => {
    const [ formData, setFormData ] = useState({
       name: '',
       email: '',
