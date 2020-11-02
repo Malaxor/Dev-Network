@@ -3,9 +3,10 @@ import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
 import { 
    REGISTER_SUCCESS, 
-   REGISTER_FAILED,
+   REGISTER_FAIL,
    USER_LOADED,
-   AUTH_ERROR
+   AUTH_ERROR,
+   LOGOUT
 } from './types';
 
 // load user
@@ -18,7 +19,7 @@ export const loadUser = () => async dispatch => {
       dispatch({
          type: USER_LOADED,
          payload: data
-      });
+      }); 
    }
    catch(err) {
       dispatch({
@@ -26,7 +27,10 @@ export const loadUser = () => async dispatch => {
       });
    }
 }
-
+// log out and clear profile
+export const logout = () => dispatch => {
+   dispatch({ type: LOGOUT });
+}
 // register user
 export const register = ({ name, email, password }) => async dispatch => {
    const body = { name, email, password };
@@ -45,7 +49,7 @@ export const register = ({ name, email, password }) => async dispatch => {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }
       dispatch({
-         type: REGISTER_FAILED
+         type: REGISTER_FAIL
       });
    }
 } 
