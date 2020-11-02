@@ -7,7 +7,7 @@ import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import App from './App';
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(reduxThunk)));
+export const store = createStore(reducers, composeWithDevTools(applyMiddleware(reduxThunk)));
 
 ReactDOM.render(
    <Provider store={store}>
