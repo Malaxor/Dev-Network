@@ -6,7 +6,9 @@ import {
    REGISTER_FAIL,
    USER_LOADED,
    AUTH_ERROR,
-   LOGOUT
+   LOGOUT,
+   LOGIN_SUCCESS,
+   LOGIN_FAIL
 } from './types';
 
 // load user
@@ -16,6 +18,7 @@ export const loadUser = () => async dispatch => {
    }
    try {
       const { data } = await axios.get('/api/auth');
+      
       dispatch({
          type: USER_LOADED,
          payload: data
@@ -27,24 +30,20 @@ export const loadUser = () => async dispatch => {
       });
    }
 }
-// log out and clear profile
-export const logout = () => dispatch => {
-   dispatch({ type: LOGOUT });
-}
 // register user
 export const register = ({ name, email, password }) => async dispatch => {
    const body = { name, email, password };
 
    try {
-      const { data } = await axios.post('/api/users', body); // data = webtoken 
-
+      const { data } = await axios.post('/api/users', body); // webtoken 
       dispatch({
          type: REGISTER_SUCCESS,
          payload: data
       });
+      dispatch(loadUser());
    }
    catch(err) {
-      const errors = err.response.data.errors;
+      const { errors } = err.response.data;
       if(errors) {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }
@@ -52,4 +51,29 @@ export const register = ({ name, email, password }) => async dispatch => {
          type: REGISTER_FAIL
       });
    }
+}
+// log in
+export const login = formData => async dispatch => {
+   const { data } = await axios.post('/api/auth', formData); // webtoken
+
+   try {
+      dispatch({
+         type: LOGIN_SUCCESS,
+         payload: data
+      });
+      dispatch(loadUser());
+   } 
+   catch(err) {
+      const { errors } = err.response.data;
+      if(errors) {
+         errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      }
+      dispatch({
+         type: LOGIN_FAIL
+      });
+   }
+}
+// log out and clear profile
+export const logout = () => async dispatch => {
+   dispatch({ type: LOGOUT });
 } 
