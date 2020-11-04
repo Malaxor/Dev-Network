@@ -25,9 +25,7 @@ export const loadUser = () => async dispatch => {
       }); 
    }
    catch(err) {
-      dispatch({
-         type: AUTH_ERROR
-      });
+      dispatch({ type: AUTH_ERROR });
    }
 }
 // register user
@@ -36,6 +34,7 @@ export const register = ({ name, email, password }) => async dispatch => {
 
    try {
       const { data } = await axios.post('/api/users', body); // webtoken 
+      
       dispatch({
          type: REGISTER_SUCCESS,
          payload: data
@@ -47,9 +46,7 @@ export const register = ({ name, email, password }) => async dispatch => {
       if(errors) {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }
-      dispatch({
-         type: REGISTER_FAIL
-      });
+      dispatch({ type: REGISTER_FAIL });
    }
 }
 // log in
@@ -68,9 +65,7 @@ export const login = formData => async dispatch => {
       if(errors) {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }
-      dispatch({
-         type: LOGIN_FAIL
-      });
+      dispatch({ type: LOGIN_FAIL });
    }
 }
 // log out and clear profile

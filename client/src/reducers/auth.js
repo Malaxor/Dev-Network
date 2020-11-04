@@ -35,12 +35,11 @@ export default (state = INITIAL_STATE, action) => {
          loading: false
       };
 
-      case AUTH_ERROR: 
-      case REGISTER_FAIL:      
-      case LOGIN_FAIL: 
+      case AUTH_ERROR:
+      case REGISTER_FAIL:
+      case LOGIN_FAIL:
       case LOGOUT:
          localStorage.removeItem('token');
-         console.log('hello');
       return {
          ...state,
          token: null,

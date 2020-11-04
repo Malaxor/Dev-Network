@@ -103,7 +103,7 @@ router.put('/like/:post_id', auth, async (req, res) => {
       res.status(500).send('Server error.');
    }
 });
-// @route PUT /api/posts/like/:post_id
+// @route PUT /api/posts/unlike/:post_id
 // @desc Unlike a post
 // @access Private
 router.put('/unlike/:post_id', auth, async (req, res) => {
