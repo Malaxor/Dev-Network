@@ -44,7 +44,8 @@ export default (state = INITIAL_STATE, action) => {
          ...state,
          token: null,
          isAuthenticated: false,
-         loading: false
+         loading: false,
+         user: null
       };
 
       default:

@@ -18,7 +18,7 @@ export const loadUser = () => async dispatch => {
       setAuthToken(localStorage.token);
    }
    try {
-      const { data } = await axios.get('/api/auth');
+      const { data } = await axios.get('/api/auth'); // logged in user
       
       dispatch({
          type: USER_LOADED,
@@ -31,10 +31,8 @@ export const loadUser = () => async dispatch => {
 }
 // register user
 export const register = ({ name, email, password }) => async dispatch => {
-   const body = { name, email, password };
-
    try {
-      const { data } = await axios.post('/api/users', body); // webtoken 
+      const { data } = await axios.post('/api/users', { name, email, password }); // webtoken 
       
       dispatch({
          type: REGISTER_SUCCESS,

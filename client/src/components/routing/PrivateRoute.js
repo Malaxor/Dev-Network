@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 const PrivateRoute = ({ component: Component, auth: { isAuthenticated, loading }, ...rest }) => (
    <Route 
       {...rest} 
-      render={props => // redirect to login if not logged in or signed
+      render={props => // redirect to login if not logged in or signed in
          !isAuthenticated && !loading ? (<Redirect to='/login' />) : (<Component {...props} />)
       }   
    />
 );
-const mapStateToProps = state => ({
-   auth: state.auth
-});
+const mapStateToProps = state => ({ auth: state.auth });
 export default connect(mapStateToProps)(PrivateRoute);

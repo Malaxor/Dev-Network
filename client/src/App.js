@@ -10,19 +10,13 @@ import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/routing/PrivateRoute';
 
-import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/auth';
 import './styles/styles.scss';
-
-if(localStorage.token) {
-   setAuthToken(localStorage.token);
-}
 
 const App = () => { 
    useEffect(() => {
       store.dispatch(loadUser());
    }, []);
-   
    return (
       <Router>
          <Fragment>

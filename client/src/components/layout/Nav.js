@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 
-const Navbar = ({ auth, logout }) => {
+const Navbar = ({ auth: { loading, isAuthenticated }, logout }) => {
    const authLinks = (
       <ul>
          <li>
@@ -32,7 +32,7 @@ const Navbar = ({ auth, logout }) => {
          <h1>
             <Link to="/"><i className="fas fa-globe"></i> World Wide Devs</Link>
          </h1>
-         {!auth.loading && (<Fragment>{auth.isAuthenticated ? authLinks : guestLinks }</Fragment>)}
+         {!loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks }</Fragment>)}
       </nav>
    );   
 }
