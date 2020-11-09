@@ -18,7 +18,7 @@ router.post('/', [ auth, validateProfile() ], async (req, res) => {
    const profileFields = {
       ...req.body,
       user: req.user.id,
-      skills: req.body.skills.split(',').map(skill => skill.trim()),
+      skills: req.body.skills.split(',').map(skill => skill.trim()),  
       social: { ...req.body.social }
    };
    

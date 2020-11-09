@@ -42,6 +42,7 @@ export const register = ({ name, email, password }) => async dispatch => {
    }
    catch(err) {
       const { errors } = err.response.data;
+      
       if(errors) {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }
@@ -61,6 +62,7 @@ export const login = formData => async dispatch => {
    } 
    catch(err) {
       const { errors } = err.response.data;
+
       if(errors) {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }

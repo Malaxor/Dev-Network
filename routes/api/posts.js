@@ -47,9 +47,9 @@ router.get('/', auth, async (req, res) => {
 // @route GET /api/posts/:id
 // @desc Get post by id
 // @access Private
-router.get('/:id', auth, async (req, res) => {
+router.get('/:post_id', auth, async (req, res) => {
    try {
-      const post = await Post.findById(req.params.id);
+      const post = await Post.findById(req.params.post_id);
       if(!post) {
          return res.status(404).json({ msg: 'Post not found...' });
       }
@@ -62,12 +62,12 @@ router.get('/:id', auth, async (req, res) => {
       res.status(500).send('Server error.');
    }
 });
-// @route DELETE /api/posts/:id
+// @route DELETE /api/posts/:post_id
 // @desc Delete a post by id
 // @access Private
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:post_id', auth, async (req, res) => {
    try {
-      const post = await Post.findById(req.params.id);
+      const post = await Post.findById(req.params.post_id);
       if(!post) {
          return res.status(404).json({ msg: 'Post not found...' });
       }
@@ -85,10 +85,10 @@ router.delete('/:id', auth, async (req, res) => {
       res.status(500).send('Server error.');
    }
 });
-// @route PUT /api/posts/like/:post_id
+// @route PUT /api/posts/:post_id/like
 // @desc Like a post
 // @access Private
-router.put('/like/:post_id', auth, async (req, res) => {
+router.put('/:post_id/like', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
       if(post.likes.filter(like => like.user.toString() === req.user.id).length === 1) {
@@ -103,10 +103,10 @@ router.put('/like/:post_id', auth, async (req, res) => {
       res.status(500).send('Server error.');
    }
 });
-// @route PUT /api/posts/unlike/:post_id
+// @route PUT /api/posts/:post_id/unlike
 // @desc Unlike a post
 // @access Private
-router.put('/unlike/:post_id', auth, async (req, res) => {
+router.put(':post_id/unlike', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
       if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
@@ -121,10 +121,10 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
       res.status(500).send('Server error.');
    }
 });
-// @route POST /api/posts/comment/:post_id
+// @route POST /api/posts/:post_id/comment
 // @desc Comment on a post
 // @access Private
-router.post('/comment/:post_id', [ auth, validateComment() ], async (req, res) => {
+router.post('/:post_id/comment', [ auth, validateComment() ], async (req, res) => {
    const errors = validationResult(req);
    if(!errors.isEmpty()) {
       res.status(400).json({ errors: errors.array() });
