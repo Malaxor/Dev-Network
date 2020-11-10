@@ -50,11 +50,10 @@ router.put('/experience', [ auth, validateExperience() ], async (req, res) => {
    if(!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
    }
-   const exp = { ...req.body };
 
    try {
       const profile = await Profile.findOne({ user: req.user.id });
-      profile.experience.unshift(exp);
+      profile.experience.unshift(req.body);
       await profile.save();
       res.json(profile);
    }
@@ -86,11 +85,10 @@ router.put('/education', [ auth, validateEducation() ], async (req, res) => {
    if(!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
    }
-   const edu = { ...req.body };
 
    try {
       const profile = await Profile.findOne({ user: req.user.id });
-      profile.education.unshift(edu);
+      profile.education.unshift(req.body);
       await profile.save();
       res.json(profile);
    }
