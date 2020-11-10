@@ -7,7 +7,7 @@ import Spinner from '../layout/Spinner';
 const Dashboard = ({ getCurrentUserProfile, auth: { user }, profile: { profile, loading } }) => {
    useEffect(() => {
       getCurrentUserProfile();
-   }, []);
+   }, [getCurrentUserProfile]);
    
    if(loading && profile === null) {
       return <Spinner />;

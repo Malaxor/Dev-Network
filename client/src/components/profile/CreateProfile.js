@@ -1,7 +1,9 @@
 import React, { Fragment, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createProfile } from '../../actions/profile';
 
-const CreateProfile = (props) => {
+const CreateProfile = ({ createProfile, history }) => {
    const [formData, setFormData] = useState({
       company: '',
       website: '',
@@ -10,47 +12,42 @@ const CreateProfile = (props) => {
       skills: '',
       githubUsername: '',
       bio: '',
-      social: {
-         twitter: '',
-         facebook: '',
-         linkedin: '',
-         youtube: '',
-         instagram: ''
-      }
+      twitter: '',
+      facebook: '',
+      linkedin: '',
+      youtube: '',
+      instagram: ''
    });
    const { 
-      company, 
-      website, 
-      location, 
-      status, 
-      skills, 
-      githubUsername, 
-      bio,
-      social: { twitter, facebook, linkedin, youtube, instagram } 
+      company, website, location, status, skills, githubUsername, bio,
+      twitter, facebook, linkedin, youtube, instagram  
    } = formData;
+   const social = { twitter, facebook, linkedin, youtube, instagram };
+
    const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
-   const onChange = e => {
-      e.prevetDefault();
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-   }  
+   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+   const onSubmit = e => {
+      e.preventDefault();
+      createProfile(formData, social, history);
+   }
    return ( 
       <Fragment>
          <h1 className="large text-primary">Create Your Profile</h1>
          <p className="lead"><i className="fas fa-user"> A Profile Will Flesh You Out</i></p>
          <small>* = required field</small>
-         <form className="form">
+         <form className="form" onSubmit={e => onSubmit(e)}>
             <div className="form-group">
                <select name="status" value={status} onChange={e => onChange(e)}>
-               <option value="0">* Select Professional Status</option>
-               <option value="Developer">Developer</option>
-               <option value="Junior Developer">Junior Developer</option>
-               <option value="Senior Developer">Senior Developer</option>
-               <option value="Manager">Manager</option>
-               <option value="Student or Learning">Student or Learning</option>
-               <option value="Instructor">Instructor or Teacher</option>
-               <option value="Intern">Intern</option>
-               <option value="Other">Other</option>
+                  <option value="0">* Select Professional Status</option>
+                  <option value="Developer">Developer</option>
+                  <option value="Junior Developer">Junior Developer</option>
+                  <option value="Senior Developer">Senior Developer</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Student or Learning">Student or Learning</option>
+                  <option value="Instructor">Instructor or Teacher</option>
+                  <option value="Intern">Intern</option>
+                  <option value="Other">Other</option>
                </select>
                <small className="form-smallText">Career status.</small>
             </div>
@@ -182,7 +179,4 @@ const CreateProfile = (props) => {
       </Fragment>
    );
 }
-const mapStateToProps = state => ({
-   
-});
-export default connect(mapStateToProps, {})(CreateProfile);
+export default connect(null, { createProfile })(withRouter(CreateProfile));
