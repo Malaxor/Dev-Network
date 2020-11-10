@@ -14,6 +14,6 @@ const DashboardActions = () => {
             <i class="fas fa-graduation-cap text-primary"></i> Add Education
          </Link>
     </div>
-   )
+   );
 }
 export default DashboardActions

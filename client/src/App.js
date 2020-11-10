@@ -13,6 +13,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 
 import { loadUser } from './actions/auth';
 import './styles/styles.scss';
+import EditProfile from './components/profile/EditProfile';
 
 const App = () => { 
    useEffect(() => {
@@ -30,6 +31,7 @@ const App = () => {
                   <Route exact path="/login" component={Login} />
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
                   <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+                  <PrivateRoute exact path="/edit-profile" component={EditProfile} />
                </Switch>
             </section>
          </Fragment>
