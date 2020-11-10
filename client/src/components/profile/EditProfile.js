@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentUserProfile } from '../../actions/profile';
 
@@ -38,7 +38,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
    return ( 
       <Fragment>
          <h1 className="large text-primary">Edit Your Profile</h1>
-         <p className="lead"><i className="fas fa-user"> Mutate Your State of Being</i></p>
+         <p className="lead"><i className="fas fa-user-edit"> Mutate Your State of Being</i></p>
          <small>* = required field</small>
          <form className="form" onSubmit={e => onSubmit(e)}>
             <div className="form-group">
@@ -178,7 +178,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
             </div>
          </Fragment>}
             <input type="submit" className="btn btn--primary my-16" />
-            <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
+            <Link className="btn btn-light my-16" to="/dashboard">Go Back</Link>
          </form>
       </Fragment>
    );

@@ -10,7 +10,7 @@ const Dashboard = ({ getCurrentUserProfile, auth: { user }, profile: { profile, 
       getCurrentUserProfile();
    }, [getCurrentUserProfile]);
    
-   if(loading) {
+   if(loading && profile === null) {
       return <Spinner />;
    }
    return (
