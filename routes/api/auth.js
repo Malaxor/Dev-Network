@@ -26,8 +26,9 @@ router.get('/', auth, async (req, res) => {
 // &access public
 router.post('/', validateLogin(), async (req, res) => {
    const errors = validationResult(req); // returns an array of objects
-   !errors.isEmpty() && res.status(400).json({ errors: errors.array() });
-
+   if(!errors.isEmpty()) { 
+      return res.status(400).json({ errors: errors.array() });
+   }   
    const { email, password } = req.body;
       
    try {

@@ -69,7 +69,7 @@ const CreateProfile = ({ createProfile, history }) => {
                value={website}
                onChange={e => onChange(e)}  
             />
-            <small className="form-smallText">Can be your own or your employer's.</small>
+            <small className="form-smallText">Yours or your employer's.</small>
          </div>
          <div className="form-group">
             <input 
@@ -109,7 +109,7 @@ const CreateProfile = ({ createProfile, history }) => {
                onChange={e => onChange(e)} 
             >
             </textarea>
-            <small className="form-smallText">Care to share personal details?</small>
+            <small className="form-smallText">One or two bits about you.</small>
          </div>
          <div className="my-32">
             <button 

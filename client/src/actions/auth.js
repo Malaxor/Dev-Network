@@ -51,9 +51,9 @@ export const register = ({ name, email, password }) => async dispatch => {
 }
 // log in
 export const login = formData => async dispatch => {
-   const { data } = await axios.post('/api/auth', formData); // webtoken
-
    try {
+      const { data } = await axios.post('/api/auth', formData); // webtoken
+
       dispatch({
          type: LOGIN_SUCCESS,
          payload: data

@@ -6,7 +6,6 @@ const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-
 // @route POST /api/profile
 // &desc Create or update user profile
 // &access Private
