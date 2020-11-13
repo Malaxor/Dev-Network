@@ -18,23 +18,44 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
       youtube: '',
       instagram: ''
    });
+   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+   useEffect(() => {
+      if(!profile) getCurrentUserProfile();
+      if(!loading && profile) {
+         const profileData = { ...formData };
+         for(let key in profile) {
+            if(key in profileData) {
+               profileData[key] = profile[key]
+            }
+         }
+         for(let key in profile.social) {
+            if(key in profileData) {
+               profileData[key] = profile.social[key];
+            }
+         }
+         profileData.skills = profileData.skills.join(', ');
+         setFormData(profileData);
+      }
+   },[getCurrentUserProfile, loading, profile]);
+
    const { 
       company, website, location, status, skills, githubUsername, bio,
       twitter, facebook, linkedin, youtube, instagram  
    } = formData;
-   const social = { twitter, facebook, linkedin, youtube, instagram };
-
-   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
    const onSubmit = e => {
       e.preventDefault();
-      createProfile(formData, social, history);
+      const revisedFormData = {};
+      
+      for(let key in formData) {
+         if(formData[key] !== '') {
+            revisedFormData[key] = formData[key];
+         }
+      }
+      createProfile(revisedFormData, history, true);
    }
-   useEffect(() => {
-      getCurrentUserProfile()
-   },[getCurrentUserProfile]);
-   
    return ( 
       <Fragment>
          <h1 className="large text-primary">Edit Your Profile</h1>
