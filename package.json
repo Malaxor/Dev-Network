@@ -1,5 +1,5 @@
 {
-  "name": "dev-network",
+  "name": "world-wide-devs",
   "version": "1.0.0",
   "description": "MERN stack social media app.",
   "main": "server.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Malaxor/Dev-Network.git"
+    "url": "git+https://github.com/Malaxor/Worldwide-Devs.git"
   },
   "author": "Philip Costache",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Malaxor/Dev-Network/issues"
+    "url": "https://github.com/Malaxor/Worldwide-Devs/issues"
   },
-  "homepage": "https://github.com/Malaxor/Dev-Network#readme",
+  "homepage": "https://github.com/Malaxor/Worldwide-Devs#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.1",

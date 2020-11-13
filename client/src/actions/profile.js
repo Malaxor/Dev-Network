@@ -24,11 +24,9 @@ export const getCurrentUserProfile = () => async dispatch => {
    }
 }
 // create or update profile
-export const createProfile = (formData, social, history, edit = false) => async dispatch => {
-   const body = { ...formData, social: { ...social }};
-   
+export const createProfile = (formData, history, edit = false) => async dispatch => {
    try {
-      const { data } = await axios.post('/api/profile', body);
+      const { data } = await axios.post('/api/profile', formData);
 
       dispatch({
          type: GET_PROFILE,

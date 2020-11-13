@@ -14,11 +14,13 @@ router.post('/', [ auth, validateProfile() ], async (req, res) => {
    if(!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
    }
+   const { twitter, facebook, instagram, youtube, linkedin } = req.body;
+
    const profileFields = {
       ...req.body,
       user: req.user.id,
-      skills: req.body.skills.split(',').map(skill => skill.trim()),  
-      social: { ...req.body.social }
+      skills: req.body.skills.split(',').map(skill => skill.trim()),
+      social: { twitter, facebook, instagram, youtube, linkedin }  
    };
    
    try {
@@ -120,7 +122,7 @@ router.get('/me', auth, async (req, res) => {
       const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar']);
 
       if(!profile) {
-         return res.status(400).json({ msg: 'There no profile for this user.' });
+         return res.status(400).json({ msg: "You don't have a profile." });
       }
       res.json(profile);
    }

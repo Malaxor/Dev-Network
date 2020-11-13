@@ -22,14 +22,20 @@ const CreateProfile = ({ createProfile, history }) => {
       company, website, location, status, skills, githubUsername, bio,
       twitter, facebook, linkedin, youtube, instagram  
    } = formData;
-   const social = { twitter, facebook, linkedin, youtube, instagram };
 
    const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
    const onSubmit = e => {
-      e.preventDefault();
-      createProfile(formData, social, history);
+      e.preventDefault();      
+      const revisedFormData = {};
+
+      for(let key in formData) {
+         if(formData[key] !== '') {
+            revisedFormData[key] = formData[key];
+         }
+      }
+      createProfile(revisedFormData, history);
    }
    return ( 
       <Fragment>
