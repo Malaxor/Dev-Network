@@ -74,7 +74,7 @@ const AddExperience = ({ addExperience, history }) => {
                      name="current" 
                      value={current}
                      checked={current}
-                     onChange={e => {
+                     onChange={() => {
                         setFormData({ ...formData, current: !current });
                         toggleDisabled(!toDateDisabled);
                      }} 
@@ -105,6 +105,6 @@ const AddExperience = ({ addExperience, history }) => {
             <Link className="btn btn--light my-16" to="/dashboard">Go Back</Link>
          </form>
       </Fragment>
-   )
+   );
 }
 export default connect(null, { addExperience })(withRouter(AddExperience));

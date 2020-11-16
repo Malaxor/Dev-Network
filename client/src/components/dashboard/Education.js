@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
+import { deleteEducation } from '../../actions/profile'
 
-const Education = ({ education }) => {
-   const educations = education.map(({ _id, school, degree, current, from, to }) => (
+const Education = ({ education, deleteEducation }) => {
+   const educations = education.map(({ _id, school, degree, from, current, to }) => (
       <tr key={_id}>
          <td>{school}</td>
          <td className='hide-sm'>{degree}</td>
@@ -12,7 +13,11 @@ const Education = ({ education }) => {
             - {current ? ('Now') : (<Moment format='YYYY/MM/DD'>{to}</Moment>)}
          </td>
          <td>
-            <button className='btn btn--danger'>Delete</button>
+            <button 
+               className='btn btn--danger'
+               onClick={() => deleteEducation(_id)}
+            >Delete
+            </button>
          </td>
       </tr>
    ));
@@ -23,7 +28,7 @@ const Education = ({ education }) => {
             <thead>
                <tr>
                   <th>School</th>
-                  <th className='hide-sm'>Title</th>
+                  <th className='hide-sm'>Degree</th>
                   <th className='hide-sm'>Years</th>
                   <th />
                </tr>
@@ -33,4 +38,4 @@ const Education = ({ education }) => {
       </Fragment>
    );
 }
-export default Education;
+export default connect(null, { deleteEducation })(Education);

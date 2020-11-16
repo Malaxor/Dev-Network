@@ -5,6 +5,7 @@ const { validateExperience, validateEducation, validateProfile } = require('../.
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 // @route POST /api/profile
 // &desc Create or update user profile
@@ -161,11 +162,12 @@ router.get('/user/:user_id', async (req, res) => {
       res.status(500).send('Server Error');
    }
 });
-// @route DELETE /api/profile/user
+// @route DELETE /api/profile
 // &desc Delete profile and user 
 // &access Private
 router.delete('/', auth, async (req, res) => {
    try {
+      await Post.deleteMany({ user: req.user.id });
       await Profile.findOneAndDelete({ user: req.user.id });
       await User.findOneAndDelete({ _id: req.user.id });
       return res.json({ msg: 'User deleted' });
