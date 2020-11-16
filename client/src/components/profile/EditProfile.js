@@ -24,9 +24,10 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
       if(!profile) getCurrentUserProfile();
       if(!loading && profile) {
          const profileData = { ...formData };
+
          for(let key in profile) {
             if(key in profileData) {
-               profileData[key] = profile[key]
+               profileData[key] = profile[key];
             }
          }
          for(let key in profile.social) {
@@ -37,8 +38,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
          profileData.skills = profileData.skills.join(', ');
          setFormData(profileData);
       }
-   },[getCurrentUserProfile, loading, profile]);
-
+   }, [getCurrentUserProfile, loading, profile]);
    const { 
       company, website, location, status, skills, githubUsername, bio,
       twitter, facebook, linkedin, youtube, instagram  
@@ -199,7 +199,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
             </div>
          </Fragment>}
             <input type="submit" className="btn btn--primary my-16" />
-            <Link className="btn btn-light my-16" to="/dashboard">Go Back</Link>
+            <Link className="btn btn--light my-16" to="/dashboard">Go Back</Link>
          </form>
       </Fragment>
    );

@@ -9,11 +9,13 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile/CreateProfile';
+import EditProfile from './components/profile/EditProfile';
+import AddExperience from './components/profile/AddExperience';
+import AddEducation from './components/profile/AddEducation';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 import { loadUser } from './actions/auth';
 import './styles/styles.scss';
-import EditProfile from './components/profile/EditProfile';
 
 const App = () => { 
    useEffect(() => {
@@ -32,6 +34,8 @@ const App = () => {
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
                   <PrivateRoute exact path="/create-profile" component={CreateProfile} />
                   <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+                  <PrivateRoute exact path="/add-experience" component={AddExperience} />
+                  <PrivateRoute exact path="/add-education" component={AddEducation} />
                </Switch>
             </section>
          </Fragment>
