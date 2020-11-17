@@ -23,11 +23,9 @@ export const getCurrentUserProfile = () => async dispatch => {
       });
    } 
    catch(err) {
-      const { statusText, status } = err.response;
-      
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: statusText, status }
+         payload: { msg: err.response.statusText, status: err.response.status }
       });
    }
 }
@@ -42,11 +40,9 @@ export const getProfileByUserId = userId => async dispatch => {
       });
    } 
    catch(err) {
-      const { statusText, status } = err.response;
-      
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: statusText, status }
+         payload: { msg: err.response.statusText, status: err.response.status }
       });
    }
 }
@@ -61,11 +57,9 @@ export const getGitHubRepos = userName => async dispatch => {
       });
    } 
    catch(err) {
-      const { statusText, status } = err.response;
-      
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: statusText, status }
+         payload: { msg: err.response.statusText, status: err.response.status }
       });
    }
 }
@@ -80,11 +74,9 @@ export const getProfiles = () => async dispatch => {
       });
    } 
    catch(err) {
-      const { statusText, status } = err.response;
-      
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: statusText, status }
+         payload: { msg: err.response.statusText, status: err.response.status }
       });
    }
 }
@@ -104,14 +96,14 @@ export const createProfile = (formData, history, edit = false) => async dispatch
       }
    } 
    catch(err) {
-      const { statusText, status, data: { errors } } = err.response;
+      const { errors } = err.response.data;
 
       if(errors) {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: statusText, status }
+         payload: { msg: err.response.statusText, status: err.response.status }
       });
    }
 }
@@ -128,14 +120,14 @@ export const addExperience = (formData, history) => async dispatch => {
       history.push('/dashboard');
    } 
    catch(err) {
-      const { statusText, status, data: { errors } } = err.response;
+      const { errors } = err.response.data;
 
       if(errors) {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: statusText, status }
+         payload: { msg: err.response.statusText, status: err.response.status }
       });
    }
 }
@@ -152,11 +144,9 @@ export const deleteExperience = id => async dispatch => {
 
    }
    catch(err) {
-      const { statusText, status } = err.response;
-
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: statusText, status }
+         payload: { msg: err.response.statusText, status: err.response.status }
       });
    }
 }
@@ -173,14 +163,14 @@ export const addEducation = (formData, history) => async dispatch => {
       history.push('/dashboard');
    } 
    catch(err) {
-      const { statusText, status, data: { errors } } = err.response;
+      const { errors } = err.response.data;
 
       if(errors) {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: statusText, status }
+         payload: { msg: err.response.statusText, status: err.response.status }
       });
    }
 }
@@ -197,11 +187,9 @@ export const deleteEducation = id => async dispatch => {
 
    }
    catch(err) {
-      const { statusText, status } = err.response;
-
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: statusText, status }
+         payload: { msg: err.response.statusText, status: err.response.status }
       });
    }
 }
@@ -216,11 +204,9 @@ export const deleteAccount = () => async dispatch => {
          dispatch(setAlert('Account permanently deleted'));
       }
       catch(err) {
-         const { statusText, status } = err.response;
-   
          dispatch({ 
             type: PROFILE_ERROR,
-            payload: { msg: statusText, status }
+            payload: { msg: err.response.statusText, status: err.response.status }
          });
       }
    }
