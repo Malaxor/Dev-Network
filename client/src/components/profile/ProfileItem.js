@@ -1,13 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-const ProfileItem = ({ profile: 
-   { user: { _id, name, avatar }}, 
+const ProfileItem = ({ profile: { user: { _id, name, avatar }, 
    status,
    company,
    location,
    skills 
-}) => {
+}}) => {
    return (
       <div className='profile bg--light'>
          <img alt={`${name}`} src={avatar} className="round-img"></img>
@@ -20,7 +19,7 @@ const ProfileItem = ({ profile:
          <ul>
             {skills.slice(0, 4).map((skill, index) => (
                <li key={index} className="text-primary">
-                  <i className="fas fa-check">{skill}</i>
+                  <i className="fas fa-check"> {skill}</i>
                </li>
             ))}
          </ul>

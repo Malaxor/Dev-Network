@@ -100,7 +100,7 @@ const CreateProfile = ({ createProfile, history }) => {
          <div className="form-group">
             <input
                type="text"
-               placeholder="Github Username"
+               placeholder="GitHub Username"
                name="githubUsername"
                value={githubUsername}
                onChange={e => onChange(e)} 
