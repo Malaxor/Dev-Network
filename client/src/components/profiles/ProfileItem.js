@@ -17,7 +17,7 @@ const ProfileItem = ({ profile: { user: { _id, name, avatar },
             <Link to={`/profile/${_id}`} className='btn btn--primary'>View Profile</Link>
          </div>
          <ul>
-            {skills.slice(0, 4).map((skill, index) => (
+            {skills.slice(0, 5).map((skill, index) => (
                <li key={index} className="text-primary">
                   <i className="fas fa-check"> {skill}</i>
                </li>
