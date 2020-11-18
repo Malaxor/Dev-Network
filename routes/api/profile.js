@@ -81,7 +81,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
    }
 });
 // @route PUT api/profile/education
-// &desc Add experience to profile
+// &desc Add education to profile
 // &access Private
 router.put('/education', [ auth, validateEducation() ], async (req, res) => {
    const errors = validationResult(req);
@@ -101,7 +101,7 @@ router.put('/education', [ auth, validateEducation() ], async (req, res) => {
    }
 });
 // @route DELETE api/profile/experience/:exp_id
-// &desc Delete profile experience
+// &desc Delete profile education
 // &access Public
 router.delete('/education/:edu_id', auth, async (req, res) => {
    try {

@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
 import { getProfileByUserId } from '../../actions/profile';
+import ProfileTop from './ProfileTop';
 
 const Profile = ({ match, getProfileByUserId, profile: { profile, loading }, auth }) => {
    useEffect(() => {
       getProfileByUserId(match.params.id);
-   }, [getProfileByUserId]);
+   }, [getProfileByUserId, match.params.id]);
 
    return (
       <Fragment>
@@ -17,10 +18,13 @@ const Profile = ({ match, getProfileByUserId, profile: { profile, loading }, aut
                {auth.isAuthenticated && !auth.loading && auth.user._id === profile.user._id && 
                   <Link to="/edit-profile" className="btn btn--dark">Edit Profile</Link>
                }
+               <div class="profile-grid my-16">
+                  <ProfileTop profile={profile} />
+               </div>
             </Fragment>
          }
       </Fragment>
-   )
+   );
 }
 const mapStateToProps = state => ({ 
    profile: state.profile,
