@@ -14,7 +14,7 @@ const ProfileEducation = ({ education: { school, degree, fieldOfStudy, current, 
          <strong>Field of Study: </strong>{fieldOfStudy}
       </p>
       {
-         description !== '' &&
+         description &&
          <p>
             <strong>Description: </strong>{description}
          </p>

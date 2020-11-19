@@ -34,18 +34,18 @@ const Profile = ({ match, getProfileByUserId, profile: { profile, loading }, aut
                            {profile.experience.map(exp => (
                               <ProfileExperience key={exp._id} experience={exp} />
                            ))}
-                        </Fragment>) : (<h4>Experience Credentials Missing</h4>)
+                        </Fragment>) : (<h4>...</h4>)
                      }
                   </div>
                   <div className="profile-edu bg--white p-32">
-                     <h2 className="text-primary">Experience</h2>
+                     <h2 className="text-primary">Education</h2>
                      {
                         profile.education.length > 0 ? (
                         <Fragment>
                            {profile.education.map(edu => (
                               <ProfileEducation key={edu._id} education={edu} />
                            ))}
-                        </Fragment>) : (<h4>Education Credentials Missing</h4>)
+                        </Fragment>) : (<h4>...</h4>)
                      }
                   </div>
                </div>

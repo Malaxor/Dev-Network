@@ -9,8 +9,8 @@ const Experience = ({ experience, deleteExperience }) => {
          <td>{company}</td>
          <td className='hide-sm'>{title}</td>
          <td>
-            <Moment format='YYYY/MM/DD'>{from}</Moment>
-            - {current ? 'Now' : <Moment format='YYYY/MM/DD'>{to}</Moment>}
+            <Moment format='MMM YYYY'>{from}</Moment>
+            - {current ? 'Now' : <Moment format='MMM YYYY'>{to}</Moment>}
          </td>
          <td>
             <button 

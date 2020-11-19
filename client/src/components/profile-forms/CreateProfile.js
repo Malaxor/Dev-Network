@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
-import reviseFormData from '../../utils/reviseFormData';
 
 const CreateProfile = ({ createProfile, history }) => {
    const [formData, setFormData] = useState({
@@ -28,9 +27,8 @@ const CreateProfile = ({ createProfile, history }) => {
 
    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
    const onSubmit = e => {
-      e.preventDefault();      
-      const revisedFormData = reviseFormData(formData);
-      createProfile(revisedFormData, history);
+      e.preventDefault();  
+      createProfile(formData, history);
    }
    return ( 
       <Fragment>

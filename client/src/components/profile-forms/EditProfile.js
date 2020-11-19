@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentUserProfile } from '../../actions/profile';
-import reviseFormData from '../../utils/reviseFormData';
 
 const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentUserProfile, history }) => {
    const [formData, setFormData] = useState({

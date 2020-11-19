@@ -11,7 +11,7 @@ const ProfileExperience = ({ experience: { company, title, location, current, to
          <strong>Position: </strong>{title}
       </p>
       {
-         description !== '' &&
+         description &&
          <p>
             <strong>Description: </strong>{description}
          </p>
