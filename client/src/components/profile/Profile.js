@@ -5,6 +5,8 @@ import Spinner from '../layout/Spinner';
 import { getProfileByUserId } from '../../actions/profile';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
+import ProfileExperience from './ProfileExperience';
+import ProfileEducation from './ProfileEducation';
 
 const Profile = ({ match, getProfileByUserId, profile: { profile, loading }, auth }) => {
    useEffect(() => {
@@ -24,6 +26,28 @@ const Profile = ({ match, getProfileByUserId, profile: { profile, loading }, aut
                <div class="profile-grid my-16">
                   <ProfileTop profile={profile} />
                   <ProfileAbout profile={profile} />
+                  <div className="profile-exp bg--white p-32">
+                     <h2 className="text-primary">Experience</h2>
+                     {
+                        profile.experience.length > 0 ? (
+                        <Fragment>
+                           {profile.experience.map(exp => (
+                              <ProfileExperience key={exp._id} experience={exp} />
+                           ))}
+                        </Fragment>) : (<h4>Experience Credentials Missing</h4>)
+                     }
+                  </div>
+                  <div className="profile-edu bg--white p-32">
+                     <h2 className="text-primary">Experience</h2>
+                     {
+                        profile.education.length > 0 ? (
+                        <Fragment>
+                           {profile.education.map(edu => (
+                              <ProfileEducation key={edu._id} education={edu} />
+                           ))}
+                        </Fragment>) : (<h4>Education Credentials Missing</h4>)
+                     }
+                  </div>
                </div>
             </Fragment>
          }

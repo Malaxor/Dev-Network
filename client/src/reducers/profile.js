@@ -50,7 +50,8 @@ export default (state = INITIAL_STATE, action) => {
       return {
          ...state,
          loading: false,
-         error: action.payload
+         error: action.payload,
+         profile: null
       };
       default:
       return state;

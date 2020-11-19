@@ -34,3 +34,28 @@
    display: flex;
    justify-content: center;
 }
+// profile experience and education
+.profile-exp {
+   grid-area: exp;
+}
+.profile-edu {
+   grid-area: edu;
+}
+.profile-exp h2,
+.profile-edu h2 {
+   margin-bottom: 1.6rem;
+}
+.profile-exp > div,
+.profile-edu > div {
+   margin-bottom: 1.6rem;
+   padding-bottom: 1.6rem;
+   border-bottom: #ccc 1px dotted;
+}
+.profile-exp > div:last-child,
+.profile-edu > div:last-child {
+   border: 0;
+}
+.profile-exp p,
+.profile-edu p {
+   margin: 0.8rem 0;
+}
