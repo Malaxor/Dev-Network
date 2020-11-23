@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-   switch(type) {
+   switch(action.type) {
       case GET_POSTS:
       return {
          ...state,
