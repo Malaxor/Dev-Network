@@ -1,0 +1,29 @@
+/* Posts Page */
+.post-form .post-form-header {
+   background: $primary-color;
+   padding: 0.8rem;
+}
+.post {
+   display: grid;
+   grid-template-columns: 1fr 4fr;
+   grid-gap: 3.2rem;
+   align-items: center;
+}
+.post > div:first-child {
+   text-align: center;
+}
+.post img {
+   width: 100px;
+}
+.post .comment-count {
+   background: $light-color;
+   color: $primary-color;
+   padding: 0.3rem 0.4rem;
+   border-radius: 5px;
+   font-size: 1rem;
+}
+.post .post-date {
+   color: #aaa;
+   font-size: 1rem;
+   margin-bottom: 0.8rem;
+}
