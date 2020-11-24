@@ -31,9 +31,9 @@ const Profile = ({ match, getProfileByUserId, profile: { profile, loading }, aut
                      {
                         profile.experience.length > 0 ? (
                         <Fragment>
-                           {profile.experience.map(exp => (
+                           {profile.experience.map(exp => 
                               <ProfileExperience key={exp._id} experience={exp} />
-                           ))}
+                           )}
                         </Fragment>) : (<h4>...</h4>)
                      }
                   </div>
@@ -42,9 +42,9 @@ const Profile = ({ match, getProfileByUserId, profile: { profile, loading }, aut
                      {
                         profile.education.length > 0 ? (
                         <Fragment>
-                           {profile.education.map(edu => (
+                           {profile.education.map(edu => 
                               <ProfileEducation key={edu._id} education={edu} />
-                           ))}
+                           )}
                         </Fragment>) : (<h4>...</h4>)
                      }
                   </div>
