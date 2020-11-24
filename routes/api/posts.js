@@ -106,7 +106,7 @@ router.put('/:post_id/like', auth, async (req, res) => {
 // @route PUT /api/posts/:post_id/unlike
 // @desc Unlike a post
 // @access Private
-router.put(':post_id/unlike', auth, async (req, res) => {
+router.put('/:post_id/unlike', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
       if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
