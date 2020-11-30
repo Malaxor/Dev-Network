@@ -7,14 +7,14 @@ import { addLike, removeLike, deletePost } from '../../actions/post';
 const PostItem = ({ addLike, removeLike, deletePost, auth, post: { _id, user, avatar, author, content, likes, comments, date } }) => (
    <div class="post bg--white p-16 my-16">
       <div>
-         <a href="profile.html">
+         <Link to={`/profile/${user}`}>
             <img
                className="round-img"
                src={avatar}
                alt=""
             />
             <h4>{author}</h4>
-         </a>
+         </Link>
       </div>
       <div>
          <p className="my-16">{content}</p>

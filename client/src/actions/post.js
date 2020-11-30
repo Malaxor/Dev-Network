@@ -1,5 +1,6 @@
 import {
    DELETE_POST,
+   ADD_POST,
    GET_POSTS,
    POST_ERROR,
    UPDATE_LIKES
@@ -48,6 +49,23 @@ export const removeLike = postId => async dispatch => {
          type: UPDATE_LIKES,
          payload: { id: postId, likes: data }
       });
+   }
+   catch(err) {
+      dispatch({
+         type: POST_ERROR,
+         payload: { msg: err.response.statusText, status: err.response.status }
+      });
+   }
+}
+// add post
+export const addPost = formData => async dispatch => {
+   try {
+      const { data } = await axios.post(`/api/posts`, formData);
+      dispatch({
+         type: ADD_POST,
+         payload: data 
+      });
+      dispatch(setAlert('Post created', 'success'));
    }
    catch(err) {
       dispatch({
