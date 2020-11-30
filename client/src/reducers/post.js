@@ -1,7 +1,9 @@
+import { post } from 'request';
 import {
    GET_POSTS,
    POST_ERROR,
-   UPDATE_LIKES
+   UPDATE_LIKES, 
+   DELETE_POST
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -19,6 +21,12 @@ export default (state = INITIAL_STATE, action) => {
          posts: action.payload,
          loading: false
       };
+      case DELETE_POST:
+      return {
+         ...state,
+         posts: state.posts.filter(post => post._id !== action.payload),
+         loading: false
+      }
       case POST_ERROR:
       return {
          ...state,
