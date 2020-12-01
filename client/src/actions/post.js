@@ -2,12 +2,13 @@ import {
    DELETE_POST,
    ADD_POST,
    GET_POSTS,
+   GET_POST,
    POST_ERROR,
    UPDATE_LIKES
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
-import { post } from 'request';
+// import { post } from 'request';
 
 // get posts
 export const getPosts = () => async dispatch => {
@@ -15,6 +16,22 @@ export const getPosts = () => async dispatch => {
       const { data } = await axios.get('/api/posts');
       dispatch({
          type: GET_POSTS,
+         payload: data
+      });
+   }
+   catch(err) {
+      dispatch({
+         type: POST_ERROR,
+         payload: { msg: err.response.statusText, status: err.response.status }
+      });
+   }
+}
+// get post
+export const getPost = postId => async dispatch => {
+   try {
+      const { data } = await axios.get(`/api/posts/${postId}`);
+      dispatch({
+         type: GET_POST,
          payload: data
       });
    }
