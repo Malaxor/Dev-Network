@@ -1,0 +1,4 @@
+{
+   "mongoURI": "mongodb+srv://Malaxor:cddqhlKzeystIkTR@cluster0.gbset.mongodb.net/<dbname>?retryWrites=true&w=majority",
+   "jwtSecret": "suchsecret"
+}
