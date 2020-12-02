@@ -30,7 +30,7 @@ A MERN stack app, Worldwide Devs is a community of developers where users create
 * [express](https://expressjs.com/)
 * [mongoDB](https://www.mongodb.com/)
 * [mongoose](http://mongoosejs.com/)
-* [bcrypt]https://www.npmjs.com/package/bcrypt)
+* [bcrypt](https://www.npmjs.com/package/bcrypt)
 * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 * [express-validator](https://express-validator.github.io/docs/)
 * [gravatar](https://www.npmjs.com/package/gravatar)
