@@ -6,12 +6,12 @@ const PostForm = ({ addPost }) => {
    const [ content, setContent ] = useState('');
 
    return (
-      <div class="post-form">
-        <div class="bg--primary p">
+      <div className="post-form">
+        <div className="bg--primary p">
             <h3>Materialize your thoughts</h3>
         </div>
         <form 
-            class="form my-16" 
+            className="form my-16" 
             onSubmit={e => {
                e.preventDefault();
                addPost({ content });
@@ -28,7 +28,7 @@ const PostForm = ({ addPost }) => {
                onChange={e => setContent(e.target.value)}
             >
             </textarea>
-            <input type="submit" class="btn btn--dark my-16" value="Submit" />
+            <input type="submit" className="btn btn--dark my-16" value="Submit" />
         </form>
       </div>
    )

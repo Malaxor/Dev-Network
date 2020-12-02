@@ -10,7 +10,7 @@ const PostItem = ({
    deletePost, 
    auth, post: { _id, user, avatar, author, content, likes, comments, date },
    displayBtns }) => (
-   <div class="post bg--white p-16 my-16">
+   <div className="post bg--white p-16 my-16">
       <div>
          <Link to={`/profile/${user}`}>
             <img
