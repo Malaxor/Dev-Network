@@ -64,7 +64,10 @@ export default (state = INITIAL_STATE, action) => {
       case REMOVE_COMMENT:
       return {
          ...state,
-         post: state.post.comments.filter(comment => comment._id !== action.payload),
+         post: { 
+            ...state.post,
+            comments: state.comments.filter(comment => comment._id !== action.payload)
+         },
          loading: false
       };
       default:

@@ -32,7 +32,7 @@ const CommentItem = ({
             !auth.loading && user === auth.user._id && (
                <button 
                   className='btn btn--danger' 
-                  onClick={e => deleteComment(postId, _id)}
+                  onClick={() => deleteComment(postId, _id)}
                >
                   <i className="fas fa-times"></i>
                </button>
@@ -41,6 +41,5 @@ const CommentItem = ({
       </div>
    </div>
 )
-
 const mapStateToProps = state => ({ auth: state.auth });
 export default connect(mapStateToProps,{ deleteComment })(CommentItem);

@@ -11,18 +11,18 @@ const PostForm = ({ addPost }) => {
             <h3>Materialize your thoughts</h3>
         </div>
         <form 
-         class="form my-16" 
-         onSubmit={e => {
-            e.preventDefault();
-            addPost({ content });
-            setContent('');
-         }}
+            class="form my-16" 
+            onSubmit={e => {
+               e.preventDefault();
+               addPost({ content });
+               setContent('');
+            }}
          >
             <textarea
                name="text"
                cols="30"
                rows="5"
-               placeholder="Create a post"
+               placeholder="the pen or the sword?"
                required
                value={content}
                onChange={e => setContent(e.target.value)}
