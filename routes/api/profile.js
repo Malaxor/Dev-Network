@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { validationResult } = require('express-validator');
+const normalize = require('normalize-url');
 const { validateExperience, validateEducation, validateProfile } = require('../../middleware');
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
@@ -15,14 +16,22 @@ router.post('/', [ auth, validateProfile() ], async (req, res) => {
    if(!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
    }
-   const { twitter, facebook, instagram, youtube, linkedin } = req.body;
+   const { website, twitter, facebook, instagram, youtube, linkedin, ...rest } = req.body;
 
    const profileFields = {
-      ...req.body,
       user: req.user.id,
       skills: req.body.skills.split(',').map(skill => skill.trim()),
-      social: { twitter, facebook, instagram, youtube, linkedin }  
+      website: website ? normalize(website, { forceHttps: true }) : '',
+      ...rest
    };
+   const social = { youtube, twitter, facebook, instagram, linkedin };
+
+   for(const [key, value] of Object.entries(social)) {
+      if(value ) {
+         social[key] = normalize(value, { forceHttps: true });
+      }
+   }
+   profileFields.social = social;
    
    try {
       let profile = await Profile.findOne({ user: req.user.id });
