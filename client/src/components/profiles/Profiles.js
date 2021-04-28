@@ -17,15 +17,10 @@ const Profile = ({ profile: { profiles, loading }, getProfiles }) => {
                <p className="lead">
                   <i className="fab fa-connectdevelop"></i> Connect with Developers
                </p>
-               <div className="profiles">
-                  {
-                     profiles.length > 0 ? (
-                        profiles.map(profile => (
-                           <ProfileItem key={profile._id} profile={profile} />
-                        ))
-                     ) : <h4>No profiles found...</h4>
-                  }
-               </div>
+               {profiles.length > 0 
+                  ? profiles.map(profile => (
+                     <ProfileItem key={profile._id} profile={profile} />)) 
+                  : <h4>No profiles found...</h4>}
             </Fragment>)
          }
       </Fragment>

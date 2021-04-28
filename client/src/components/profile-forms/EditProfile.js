@@ -38,7 +38,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
          profileData.skills = profileData.skills.join(', ');
          setFormData(profileData);
       }
-   }, [getCurrentUserProfile, loading, profile]);
+   }, [getCurrentUserProfile, loading, profile, formData]);
    const { 
       company, website, location, status, skills, githubUsername, bio,
       twitter, facebook, linkedin, youtube, instagram  

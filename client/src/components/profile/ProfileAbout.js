@@ -5,7 +5,7 @@ const ProfileAbout = ({ profile: { bio, skills} }) =>  (
       {
          bio && (
             <Fragment>
-               <h2 className="text-primary">Bio</h2>
+               <h2 className="text-primary p-16">Bio</h2>
                <p>{bio}</p>
                <div className="line"></div>
             </Fragment>

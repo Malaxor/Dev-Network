@@ -17,7 +17,7 @@ const INITIAL_STATE = {
    error: {}
 };
 
-export default (state = INITIAL_STATE, action) => {
+const profileReducer = (state = INITIAL_STATE, action) => {
    switch(action.type) {
       case GET_PROFILE:
       case CREATE_PROFILE:
@@ -57,3 +57,4 @@ export default (state = INITIAL_STATE, action) => {
       return state;
    }
 }
+export default profileReducer;

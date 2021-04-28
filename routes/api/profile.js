@@ -27,7 +27,7 @@ router.post('/', [ auth, validateProfile() ], async (req, res) => {
    const social = { youtube, twitter, facebook, instagram, linkedin };
 
    for(const [key, value] of Object.entries(social)) {
-      if(value ) {
+      if(value) {
          social[key] = normalize(value, { forceHttps: true });
       }
    }

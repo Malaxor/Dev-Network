@@ -91,7 +91,7 @@ export const createProfile = (formData, history, edit = false) => async dispatch
          payload: data
       });
       dispatch(setAlert(edit ? 'Profile updated' : 'Profile created', 'success'));
-
+      // redirect to dashboard when creating, not updating, profile
       if(!edit) {
          history.push('/dashboard');
       }

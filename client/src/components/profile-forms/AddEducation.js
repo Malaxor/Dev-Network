@@ -13,7 +13,6 @@ const AddEducation = ({ addEducation, history }) => {
       current: false,
       description: ''
    });
-   const [toDateDisabled, toggleDisabled] = useState(false);
    const { school, degree, fieldOfStudy, from, to, current, description } = formData;
 
    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -74,10 +73,7 @@ const AddEducation = ({ addEducation, history }) => {
                      name="current" 
                      value={current}
                      checked={current}
-                     onChange={e => {
-                        setFormData({ ...formData, current: !current });
-                        toggleDisabled(!toDateDisabled);
-                     }} 
+                     onChange={() => setFormData({ ...formData, current: !current })} 
                   /> Current School
                </p>
             </div>
@@ -88,7 +84,7 @@ const AddEducation = ({ addEducation, history }) => {
                   name="to"
                   value={to}
                   onChange={e => onChange(e)}
-                  disabled={toDateDisabled ? true : false} 
+                  disabled={current ? true : false} 
                />
             </div>
             <div className="form-group">

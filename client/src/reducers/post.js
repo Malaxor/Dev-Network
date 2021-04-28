@@ -17,7 +17,7 @@ const INITIAL_STATE = {
    error: {}
 };
 
-export default (state = INITIAL_STATE, action) => {
+const postReducer = (state = INITIAL_STATE, action) => {
    switch(action.type) {
       case GET_POSTS:
       return {
@@ -74,3 +74,4 @@ export default (state = INITIAL_STATE, action) => {
       return state;
    }
 }
+export default postReducer;

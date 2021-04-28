@@ -12,23 +12,6 @@ import {
    CLEAR_PROFILE
 } from './types';
 
-// load user
-export const loadUser = () => async dispatch => {
-   if(localStorage.token) {
-      setAuthToken(localStorage.token);
-   }
-   try {
-      const { data } = await axios.get('/api/auth'); // logged in user
-      
-      dispatch({
-         type: USER_LOADED,
-         payload: data
-      }); 
-   }
-   catch(err) {
-      dispatch({ type: AUTH_ERROR });
-   }
-}
 // register user
 export const register = ({ name, email, password }) => async dispatch => {
    try {
@@ -67,6 +50,23 @@ export const login = formData => async dispatch => {
          errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
       }
       dispatch({ type: LOGIN_FAIL });
+   }
+}
+// load user
+export const loadUser = () => async dispatch => {
+   if(localStorage.token) {
+      setAuthToken(localStorage.token);
+   }
+   try {
+      const { data } = await axios.get('/api/auth'); // logged in user
+      
+      dispatch({
+         type: USER_LOADED,
+         payload: data
+      }); 
+   }
+   catch(err) {
+      dispatch({ type: AUTH_ERROR });
    }
 }
 // log out and clear profile
