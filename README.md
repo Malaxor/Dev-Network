@@ -1,6 +1,6 @@
 A MERN stack app, Worldwide Devs is a community of developers where users create/view profiles and author posts and comments. 
 
-### Live Demo: https://polar-plains-02301.herokuapp.com/
+### Live Demo: https://secure-citadel-66278.herokuapp.com/
 
 
 * Registration, Authentication/Authorization and Basic Functionalities:
