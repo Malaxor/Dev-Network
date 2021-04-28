@@ -17,15 +17,16 @@ const Profile = ({ match, getProfileByUserId, profile: { profile, loading }, aut
    return (
       <Fragment>
          {
-            profile === null || loading ? <Spinner /> :
-            <Fragment>
-               <Link to="/profiles" className="btn btn--light">Back to Profiles</Link>
-               {auth.user._id === profile.user._id && 
+            profile === null 
+               ? <Spinner />
+               : <Fragment>
+                  <Link to="/profiles" className="btn btn--light">Back to Profiles</Link>
+                  {auth.isAuthenticated && auth.user._id === profile.user._id && 
                   <Link to="/edit-profile" className="btn btn--dark">Edit Profile</Link>}
-               <div class="profile-grid my-16">
-                  <ProfileTop profile={profile} />
-                  <ProfileAbout profile={profile} />
-                  <div className="profile-exp bg--white p-32">
+                  <div class="profile-grid my-16">
+                     <ProfileTop profile={profile} />
+                     <ProfileAbout profile={profile} />
+                     <div className="profile-exp bg--white p-32">
                      <h2 className="text-primary">Experience</h2>
                      {profile.experience.length > 0 
                         ? <Fragment>

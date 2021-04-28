@@ -21,8 +21,8 @@ const Dashboard = ({ getCurrentUserProfile, auth: { user }, profile: { profile, 
          <p className="lead">
             <i className="fa fa-user"> Welcome, {user && user.name}</i>
          </p>
-         {profile !== null ? (
-            <Fragment>
+         {profile !== null 
+         ? <Fragment>
                <DashboardActions />
                <Experience experience={profile.experience} />
                <Education education={profile.education} />
@@ -31,11 +31,11 @@ const Dashboard = ({ getCurrentUserProfile, auth: { user }, profile: { profile, 
                      <i className="fas fa-user-minus"></i> Delete My Account
                   </button>
                </div>
-            </Fragment>) : (
-            <Fragment>
+            </Fragment> 
+         : <Fragment>
                <p>Please create your profile.</p>
                <Link to="/create-profile" className="btn btn--primary my-8">Create Profile</Link>
-            </Fragment>)
+            </Fragment>
          } 
       </Fragment>
    );
