@@ -91,7 +91,8 @@ router.delete('/:post_id', auth, async (req, res) => {
 router.put('/:post_id/like', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
-      if(post.likes.filter(like => like.user.toString() === req.user.id).length === 1) {
+      // if any of like.user (which are IDs) is equal to req.user.id
+      if(post.likes.some(like => like.user.toString() === req.user.id)) {
          return res.status(400).json({ msg: "You can only like a post once." });
       }
       post.likes.push({ user: req.user.id });
@@ -109,7 +110,8 @@ router.put('/:post_id/like', auth, async (req, res) => {
 router.put('/:post_id/unlike', auth, async (req, res) => {
    try {
       const post = await Post.findById(req.params.post_id);
-      if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
+      // if every like.user (id) does not equal req.user.id
+      if(post.likes.every(like => like.user.toString() !== req.user.id)) {
          return res.status(400).json({ msg: "You have not liked this post." });
       }
       post.likes = post.likes.filter(like => like.user.toString() !== req.user.id);

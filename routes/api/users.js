@@ -8,7 +8,7 @@ const config = require('config');
 const User = require('../../models/User');
 const { validateUser } = require('../../middleware');
 
-// @route POST /api/user
+// @route POST /api/users
 // &desc Register User 
 // &access Public
 router.post('/', validateUser(), async (req, res) => {

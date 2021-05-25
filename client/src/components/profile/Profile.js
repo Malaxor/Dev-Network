@@ -16,37 +16,34 @@ const Profile = ({ match, getProfileByUserId, profile: { profile, loading }, aut
 
    return (
       <Fragment>
-         {
-            profile === null 
-               ? <Spinner />
-               : <Fragment>
-                  <Link to="/profiles" className="btn btn--light">Back to Profiles</Link>
-                  {auth.isAuthenticated && auth.user._id === profile.user._id && 
-                  <Link to="/edit-profile" className="btn btn--dark">Edit Profile</Link>}
-                  <div class="profile-grid my-16">
-                     <ProfileTop profile={profile} />
-                     <ProfileAbout profile={profile} />
-                     <div className="profile-exp bg--white p-32">
+         {profile === null 
+         ? <Spinner />
+         : <Fragment>
+               <Link to="/profiles" className="btn btn--light">Back to Profiles</Link>
+               {auth.isAuthenticated && auth.user._id === profile.user._id && 
+               <Link to="/edit-profile" className="btn btn--dark">Edit Profile</Link>}
+               <div class="profile-grid my-16">
+                  <ProfileTop profile={profile} />
+                  <ProfileAbout profile={profile} />
+                  <div className="profile-exp bg--white p-32">
                      <h2 className="text-primary">Experience</h2>
                      {profile.experience.length > 0 
-                        ? <Fragment>
-                              {profile.experience.map(exp => 
-                                 <ProfileExperience key={exp._id} experience={exp} />
-                              )}
-                           </Fragment> 
-                        :  <h4>...</h4>
-                     }
+                     ? <Fragment>
+                           {profile.experience.map(exp => 
+                              <ProfileExperience key={exp._id} experience={exp} />
+                           )}
+                        </Fragment> 
+                     :  <h4>...</h4>}
                   </div>
                   <div className="profile-edu bg--white p-32">
                      <h2 className="text-primary">Education</h2>
                      {profile.education.length > 0 
-                        ? <Fragment>
-                              {profile.education.map(edu =>
+                     ? <Fragment>
+                           {profile.education.map(edu =>
                                  <ProfileEducation key={edu._id} education={edu} />
                               )}
                            </Fragment> 
-                        :  <h4>...</h4>
-                     }
+                     :  <h4>...</h4>}
                   </div>
                </div>
             </Fragment>
