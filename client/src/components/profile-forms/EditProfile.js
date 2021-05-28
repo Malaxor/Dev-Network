@@ -116,7 +116,7 @@ const EditProfile = ({ profile: { profile }, createProfile, getCurrentUserProfil
          <div className="form-group">
             <input
                type="text"
-               placeholder="Github Username"
+               placeholder="GitHub username"
                name="githubUsername"
                value={githubUsername}
                onChange={onChange} 
