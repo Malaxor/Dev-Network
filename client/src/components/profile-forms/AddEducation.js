@@ -27,7 +27,7 @@ const AddEducation = ({ addEducation, history }) => {
          <i className="fas fa-code-branch"></i> Educational Attainment
          </p>
          <small>* = required field</small>
-         <form className="form" onSubmit={e => onSubmit(e)}>
+         <form className="form" onSubmit={onSubmit}>
             <div className="form-group">
                <input 
                   type="text" 
@@ -35,7 +35,7 @@ const AddEducation = ({ addEducation, history }) => {
                   name="school" 
                   required
                   value={school}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
             <div className="form-group">
@@ -45,7 +45,7 @@ const AddEducation = ({ addEducation, history }) => {
                   name="degree" 
                   required
                   value={degree}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
             <div className="form-group">
@@ -54,7 +54,7 @@ const AddEducation = ({ addEducation, history }) => {
                   placeholder="Field of Study" 
                   name="fieldOfStudy"
                   value={fieldOfStudy}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
             <div className="form-group">
@@ -63,7 +63,7 @@ const AddEducation = ({ addEducation, history }) => {
                   type="date" 
                   name="from"
                   value={from}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
                <div className="form-group">
@@ -83,7 +83,7 @@ const AddEducation = ({ addEducation, history }) => {
                   type="date" 
                   name="to"
                   value={to}
-                  onChange={e => onChange(e)}
+                  onChange={onChange}
                   disabled={current ? true : false} 
                />
             </div>
@@ -94,7 +94,7 @@ const AddEducation = ({ addEducation, history }) => {
                   rows="5"
                   placeholder="Program Description"
                   value={description}
-                  onChange={e => onChange(e)}
+                  onChange={onChange}
                ></textarea>
             </div>
             <input type="submit" className="btn btn--primary my-16" />

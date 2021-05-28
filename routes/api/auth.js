@@ -46,7 +46,6 @@ router.post('/', validateLogin(), async (req, res) => {
             id: user.id
          }
       };
-      // receive token with user.id payload and send token 
       jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 }, (err, token) => {
          if(err) throw err;
          res.json({ token });

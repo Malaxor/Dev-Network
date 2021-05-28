@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setAlert } from './alert';
+import { addAlert } from './alert';
 import {
    GET_PROFILE,
    GET_PROFILES,
@@ -23,9 +23,11 @@ export const getCurrentUserProfile = () => async dispatch => {
       });
    } 
    catch(err) {
+      const { statusText, status } = err.response;
+      
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: err.response.statusText, status: err.response.status }
+         payload: { msg: statusText, status: status }
       });
    }
 }
@@ -40,9 +42,11 @@ export const getProfileByUserId = userId => async dispatch => {
       });
    } 
    catch(err) {
+      const { statusText, status } = err.response;
+
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: err.response.statusText, status: err.response.status }
+         payload: { msg: statusText, status: status }
       });
    }
 }
@@ -57,9 +61,11 @@ export const getGitHubRepos = userName => async dispatch => {
       });
    } 
    catch(err) {
+      const { statusText, status } = err.response;
+
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: err.response.statusText, status: err.response.status }
+         payload: { msg: statusText, status: status }
       });
    }
 }
@@ -76,9 +82,11 @@ export const getProfiles = () => async dispatch => {
       });
    } 
    catch(err) {
+      const { statusText, status } = err.response;
+
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: err.response.statusText, status: err.response.status }
+         payload: { msg: statusText, status: status }
       });
    }
 }
@@ -91,21 +99,21 @@ export const createProfile = (formData, history, edit = false) => async dispatch
          type: CREATE_PROFILE,
          payload: data
       });
-      dispatch(setAlert(edit ? 'Profile updated' : 'Profile created', 'success'));
-      // redirect to dashboard when creating, not updating, profile
+      dispatch(addAlert(edit ? 'Profile updated' : 'Profile created', 'success'));
+      // redirect to dashboard when creating, not updating, the profile
       if(!edit) {
          history.push('/dashboard');
       }
    } 
    catch(err) {
-      const { errors } = err.response.data;
+      const { errors, statusText, status } = err.response.data;
 
       if(errors) {
-         errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+         errors.forEach(error => dispatch(addAlert(error.msg, 'danger')));
       }
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: err.response.statusText, status: err.response.status }
+         payload: { msg: statusText, status: status }
       });
    }
 }
@@ -118,18 +126,18 @@ export const addExperience = (formData, history) => async dispatch => {
          type: UPDATE_PROFILE,
          payload: data
       });
-      dispatch(setAlert('Experience added', 'success'));
+      dispatch(addAlert('Experience added', 'success'));
       history.push('/dashboard');
    } 
    catch(err) {
-      const { errors } = err.response.data;
+      const { errors, statusText, status} = err.response.data;
 
       if(errors) {
-         errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+         errors.forEach(error => dispatch(addAlert(error.msg, 'danger')));
       }
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: err.response.statusText, status: err.response.status }
+         payload: { msg: statusText, status: status }
       });
    }
 }
@@ -142,13 +150,15 @@ export const deleteExperience = id => async dispatch => {
          type: UPDATE_PROFILE,
          payload: data
       });
-      dispatch(setAlert('Experience removed', 'success'));
+      dispatch(addAlert('Experience removed', 'success'));
 
    }
    catch(err) {
+      const { statusText, status } = err.response;
+
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: err.response.statusText, status: err.response.status }
+         payload: { msg: statusText, status: status }
       });
    }
 }
@@ -161,18 +171,18 @@ export const addEducation = (formData, history) => async dispatch => {
          type: UPDATE_PROFILE,
          payload: data
       });
-      dispatch(setAlert('Education added', 'success'));
+      dispatch(addAlert('Education added', 'success'));
       history.push('/dashboard');
    } 
    catch(err) {
-      const { errors } = err.response.data;
+      const { errors, statusText, status} = err.response.data;
 
       if(errors) {
-         errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+         errors.forEach(error => dispatch(addAlert(error.msg, 'danger')));
       }
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: err.response.statusText, status: err.response.status }
+         payload: { msg: statusText, status: status }
       });
    }
 }
@@ -185,13 +195,15 @@ export const deleteEducation = id => async dispatch => {
          type: UPDATE_PROFILE,
          payload: data
       });
-      dispatch(setAlert('Education removed', 'success'));
+      dispatch(addAlert('Education removed', 'success'));
 
    }
    catch(err) {
+      const { statusText, status } = err.response;
+
       dispatch({ 
          type: PROFILE_ERROR,
-         payload: { msg: err.response.statusText, status: err.response.status }
+         payload: { msg: statusText, status: status }
       });
    }
 }
@@ -203,13 +215,15 @@ export const deleteAccount = () => async dispatch => {
    
          dispatch({ type: CLEAR_PROFILE });
          dispatch({ type: DELETE_ACCOUNT });
-         dispatch(setAlert('Account permanently deleted'));
+         dispatch(addAlert('Account permanently deleted'));
       }
       catch(err) {
+         const { statusText, status } = err.response;
+
          dispatch({ 
             type: PROFILE_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: { msg: statusText, status: status }
          });
       }
    }
-}    
+}

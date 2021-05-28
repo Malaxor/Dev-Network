@@ -17,48 +17,48 @@ const INITIAL_STATE = {
    error: {}
 };
 
-const postReducer = (state = INITIAL_STATE, action) => {
-   switch(action.type) {
+const postReducer = (state = INITIAL_STATE, { type, payload }) => {
+   switch(type) {
       case GET_POSTS:
       return {
          ...state,
-         posts: action.payload,
+         posts: payload,
          loading: false
       };
       case GET_POST:
       return {
          ...state,
-         post: action.payload,
+         post: payload,
          loading: false
       };
       case ADD_POST:
       return {
          ...state,
-         posts: [action.payload, ...state.posts],
+         posts: [payload, ...state.posts],
          loading: false
       };
       case DELETE_POST:
       return {
          ...state,
-         posts: state.posts.filter(post => post._id !== action.payload),
+         posts: state.posts.filter(post => post._id !== payload),
          loading: false
       }
       case POST_ERROR:
       return {
          ...state,
-         error: action.payload,
+         error: payload,
          loading: false
       };
       case UPDATE_LIKES:
       return {
          ...state,
-         posts: state.posts.map(post => post._id === action.payload.id ? { ...post, likes: action.payload.likes } : post),
+         posts: state.posts.map(post => post._id === payload.id ? { ...post, likes: payload.likes } : post),
          loading: false
       };
       case ADD_COMMENT:
       return {
          ...state,
-         post: { ...state.post, comments: action.payload },
+         post: { ...state.post, comments: payload },
          loading: false
       };
       case REMOVE_COMMENT:
@@ -66,7 +66,7 @@ const postReducer = (state = INITIAL_STATE, action) => {
          ...state,
          post: { 
             ...state.post,
-            comments: state.post.comments.filter(comment => comment._id !== action.payload)
+            comments: state.post.comments.filter(comment => comment._id !== payload)
          },
          loading: false
       };

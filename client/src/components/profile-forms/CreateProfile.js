@@ -35,9 +35,9 @@ const CreateProfile = ({ createProfile, history }) => {
          <h1 className="large text-primary">Create Your Profile</h1>
          <p className="lead"><i className="fas fa-user"> A Profile Will Flesh You Out</i></p>
          <small>* = required field</small>
-         <form className="form" onSubmit={e => onSubmit(e)}>
+         <form className="form" onSubmit={onSubmit}>
             <div className="form-group">
-               <select name="status" value={status} onChange={e => onChange(e)}>
+               <select name="status" value={status} onChange={onChange}>
                   <option value="0">* Select Professional Status</option>
                   <option value="Developer">Developer</option>
                   <option value="Junior Developer">Junior Developer</option>
@@ -56,7 +56,7 @@ const CreateProfile = ({ createProfile, history }) => {
                placeholder="Company" 
                name="company" 
                value={company}
-               onChange={e => onChange(e)} 
+               onChange={onChange} 
             />
             <small className="form-smallText">Self-employed or wage slave?</small>
          </div>
@@ -66,7 +66,7 @@ const CreateProfile = ({ createProfile, history }) => {
                placeholder="Website" 
                name="website"
                value={website}
-               onChange={e => onChange(e)}  
+               onChange={onChange}  
             />
             <small className="form-smallText">Yours or your employer's.</small>
          </div>
@@ -76,7 +76,7 @@ const CreateProfile = ({ createProfile, history }) => {
                placeholder="Location" 
                name="location"
                value={location}
-               onChange={e => onChange(e)}  
+               onChange={onChange}  
             />
             <small className="form-smallText">City & State (e.g. Detroit, MI).</small>
          </div>
@@ -86,7 +86,7 @@ const CreateProfile = ({ createProfile, history }) => {
                placeholder="* Skills" 
                name="skills"
                value={skills}
-               onChange={e => onChange(e)}  
+               onChange={onChange}  
             />
             <small className="form-smallText">Please use commas to separate values (e.g. JavaScript, Node, React).</small>
          </div>
@@ -96,7 +96,7 @@ const CreateProfile = ({ createProfile, history }) => {
                placeholder="GitHub Username"
                name="githubUsername"
                value={githubUsername}
-               onChange={e => onChange(e)} 
+               onChange={onChange} 
             />
             <small className="form-text">Provide your GitHub username to view your latest repos.</small>
          </div>
@@ -105,7 +105,7 @@ const CreateProfile = ({ createProfile, history }) => {
                placeholder="Your brief bio" 
                name="bio"
                value={bio}
-               onChange={e => onChange(e)} 
+               onChange={onChange} 
             >
             </textarea>
             <small className="form-smallText">One or two bits about you.</small>
@@ -128,7 +128,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   placeholder="Twitter URL" 
                   name="twitter"
                   value={twitter}
-                  onChange={e => onChange(e)}  
+                  onChange={onChange}  
                />
             </div>
             <div className="form-group social-input">
@@ -138,7 +138,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   placeholder="Facebook URL" 
                   name="facebook" 
                   value={facebook}
-                  onChange={e => onChange(e)}  
+                  onChange={onChange}  
                />
             </div>
             <div className="form-group social-input">
@@ -148,7 +148,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   placeholder="YouTube URL" 
                   name="youtube"
                   value={youtube}
-                  onChange={e => onChange(e)}   
+                  onChange={onChange}   
                />
             </div>
             <div className="form-group social-input">
@@ -158,7 +158,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   placeholder="Linkedin URL" 
                   name="linkedin"
                   value={linkedin}
-                  onChange={e => onChange(e)}   
+                  onChange={onChange}   
                />
             </div>
             <div className="form-group social-input">
@@ -168,7 +168,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   placeholder="Instagram URL" 
                   name="instagram"
                   value={instagram}
-                  onChange={e => onChange(e)}   
+                  onChange={onChange}   
                />
             </div>
          </Fragment>}

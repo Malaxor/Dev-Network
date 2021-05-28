@@ -28,7 +28,7 @@ const AddExperience = ({ addExperience, history }) => {
          <i className="fas fa-code-branch"></i> Professional Programming Experience
          </p>
          <small>* = required field</small>
-         <form className="form" onSubmit={e => onSubmit(e)}>
+         <form className="form" onSubmit={onSubmit}>
             <div className="form-group">
                <input 
                   type="text" 
@@ -36,7 +36,7 @@ const AddExperience = ({ addExperience, history }) => {
                   name="title" 
                   required
                   value={title}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
             <div className="form-group">
@@ -46,7 +46,7 @@ const AddExperience = ({ addExperience, history }) => {
                   name="company" 
                   required
                   value={company}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
             <div className="form-group">
@@ -55,7 +55,7 @@ const AddExperience = ({ addExperience, history }) => {
                   placeholder="Location" 
                   name="location"
                   value={location}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
             <div className="form-group">
@@ -64,7 +64,7 @@ const AddExperience = ({ addExperience, history }) => {
                   type="date" 
                   name="from"
                   value={from}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
                <div className="form-group">
@@ -87,7 +87,7 @@ const AddExperience = ({ addExperience, history }) => {
                   type="date" 
                   name="to"
                   value={to}
-                  onChange={e => onChange(e)}
+                  onChange={onChange}
                   disabled={toDateDisabled ? true : false} 
                />
             </div>
@@ -98,7 +98,7 @@ const AddExperience = ({ addExperience, history }) => {
                   rows="5"
                   placeholder="Job Description"
                   value={description}
-                  onChange={e => onChange(e)}
+                  onChange={onChange}
                ></textarea>
             </div>
             <input type="submit" className="btn btn--primary my-16" />

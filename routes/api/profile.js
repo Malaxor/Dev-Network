@@ -9,48 +9,40 @@ const User = require('../../models/User');
 const Post = require('../../models/Post');
 
 // @route POST /api/profile
-// &desc Create or update user profile
+// &desc create or update user profile
 // &access Private
 router.post('/', [ auth, validateProfile() ], async (req, res) => {
    const errors = validationResult(req);
    if(!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
    }
-   const { website, twitter, facebook, instagram, youtube, linkedin, ...rest } = req.body;
+   const { website, skills, twitter, facebook, instagram, youtube, linkedin, ...rest } = req.body;
 
    const profileFields = {
       user: req.user.id,
-      skills: req.body.skills.split(',').map(skill => skill.trim()),
+      skills: skills.split(',').map(skill => skill.trim()),
       website: website ? normalize(website, { forceHttps: true }) : '',
       ...rest
    };
-   const social = { youtube, twitter, facebook, instagram, linkedin };
+   const socialFields = { youtube, twitter, facebook, instagram, linkedin };
 
-   for(const [key, value] of Object.entries(social)) {
+   for(const [key, value] of Object.entries(socialFields)) {
       if(value) {
-         social[key] = normalize(value, { forceHttps: true });
+         socialFields[key] = normalize(value, { forceHttps: true });
       }
    }
-   profileFields.social = social;
+   profileFields.social = socialFields;
    
-   try {
-      let profile = await Profile.findOne({ user: req.user.id });
-      // update profile
-      if(profile) {
-         profile = await Profile.findOneAndUpdate(
-            { user: req.user.id }, 
-            { $set: profileFields },
-            { new: true }
-         );
-         return res.json(profile);
-      }
-      // create profile
-      const newProfile = new Profile(profileFields);
-      await newProfile.save();
-      res.json(newProfile);
+   try { // upsert creates a new profile if one is not found
+      let profile = await Profile.findOneAndUpdate(
+         { user: req.user.id }, 
+         { $set: profileFields },
+         { new: true, upsert: true, setDefaultsOnInsert: true }
+      );
+      return res.json(profile);
    }
    catch(err) {
-      console.error(err);
+      console.error(err.message);
       res.status(500).send('Server Error');
    }
 });

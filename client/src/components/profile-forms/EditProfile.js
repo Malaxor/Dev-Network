@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentUserProfile } from '../../actions/profile';
 
-const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentUserProfile, history }) => {
+const EditProfile = ({ profile: { profile }, createProfile, getCurrentUserProfile, history }) => {
    const [formData, setFormData] = useState({
       company: '',
       website: '',
@@ -21,16 +21,20 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
    const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
    useEffect(() => {
-      if(!profile) getCurrentUserProfile();
-      if(!loading && profile) {
+      if(!profile) {
+         getCurrentUserProfile();
+      }
+      else {
          const profileData = { ...formData };
 
          for(let key in profile) {
+            // avoids the _id property on the profile object
             if(key in profileData) {
                profileData[key] = profile[key];
             }
          }
          for(let key in profile.social) {
+            // avoids the _id property on the profile.social object
             if(key in profileData) {
                profileData[key] = profile.social[key];
             }
@@ -38,7 +42,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
          profileData.skills = profileData.skills.join(', ');
          setFormData(profileData);
       }
-   }, [getCurrentUserProfile, loading, profile, formData]);
+   }, [getCurrentUserProfile, profile]);
    const { 
       company, website, location, status, skills, githubUsername, bio,
       twitter, facebook, linkedin, youtube, instagram  
@@ -54,7 +58,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
          <h1 className="large text-primary">Edit Your Profile</h1>
          <p className="lead"><i className="fas fa-user-edit"> Mutate Your State of Being</i></p>
          <small>* = required field</small>
-         <form className="form" onSubmit={e => onSubmit(e)}>
+         <form className="form" onSubmit={onSubmit}>
             <div className="form-group">
                <select name="status" value={status} onChange={e => onChange(e)}>
                   <option value="0">* Select Professional Status</option>
@@ -75,7 +79,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                placeholder="Company" 
                name="company" 
                value={company}
-               onChange={e => onChange(e)} 
+               onChange={onChange} 
             />
             <small className="form-smallText">Self-employed or wage slave?</small>
          </div>
@@ -85,7 +89,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                placeholder="Website" 
                name="website"
                value={website}
-               onChange={e => onChange(e)}  
+               onChange={onChange}  
             />
             <small className="form-smallText">Yours or your employer's.</small>
          </div>
@@ -95,7 +99,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                placeholder="Location" 
                name="location"
                value={location}
-               onChange={e => onChange(e)}  
+               onChange={onChange}  
             />
             <small className="form-smallText">City & State (e.g. Detroit, MI).</small>
          </div>
@@ -105,7 +109,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                placeholder="* Skills" 
                name="skills"
                value={skills}
-               onChange={e => onChange(e)}  
+               onChange={onChange}  
             />
             <small className="form-smallText">Please use commas to separate values (e.g. JavaScript, Node, React).</small>
          </div>
@@ -115,7 +119,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                placeholder="Github Username"
                name="githubUsername"
                value={githubUsername}
-               onChange={e => onChange(e)} 
+               onChange={onChange} 
             />
             <small className="form-text">Provide your GitHub username to view your latest repos.</small>
          </div>
@@ -124,7 +128,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                placeholder="Your brief bio" 
                name="bio"
                value={bio}
-               onChange={e => onChange(e)} 
+               onChange={onChange} 
             >
             </textarea>
             <small className="form-smallText">One or two bits about you.</small>
@@ -147,7 +151,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                   placeholder="Twitter URL" 
                   name="twitter"
                   value={twitter}
-                  onChange={e => onChange(e)}  
+                  onChange={onChange}  
                />
             </div>
             <div className="form-group social-input">
@@ -157,7 +161,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                   placeholder="Facebook URL" 
                   name="facebook" 
                   value={facebook}
-                  onChange={e => onChange(e)}  
+                  onChange={onChange}  
                />
             </div>
             <div className="form-group social-input">
@@ -167,7 +171,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                   placeholder="YouTube URL" 
                   name="youtube"
                   value={youtube}
-                  onChange={e => onChange(e)}   
+                  onChange={onChange}   
                />
             </div>
             <div className="form-group social-input">
@@ -177,7 +181,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                   placeholder="Linkedin URL" 
                   name="linkedin"
                   value={linkedin}
-                  onChange={e => onChange(e)}   
+                  onChange={onChange}   
                />
             </div>
             <div className="form-group social-input">
@@ -187,7 +191,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentU
                   placeholder="Instagram URL" 
                   name="instagram"
                   value={instagram}
-                  onChange={e => onChange(e)}   
+                  onChange={onChange}   
                />
             </div>
          </Fragment>}

@@ -1,6 +1,5 @@
 import axios from 'axios';
-import setAuthToken from '../utils/setAuthToken';
-import { setAlert } from './alert';
+import { addAlert } from './alert';
 import { 
    REGISTER_SUCCESS, 
    REGISTER_FAIL,
@@ -14,7 +13,7 @@ import {
 // register user
 export const register = ({ name, email, password }) => async dispatch => {
    try {
-      const { data } = await axios.post('/api/users', { name, email, password }); // webtoken 
+      const { data } = await axios.post('/api/users', { name, email, password }); // data is an object with a property named token
       
       dispatch({
          type: REGISTER_SUCCESS,
@@ -26,7 +25,7 @@ export const register = ({ name, email, password }) => async dispatch => {
       const { errors } = err.response.data;
       
       if(errors) {
-         errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+         errors.forEach(error => dispatch(addAlert(error.msg, 'danger')));
       }
       dispatch({ type: REGISTER_FAIL });
    }
@@ -34,7 +33,7 @@ export const register = ({ name, email, password }) => async dispatch => {
 // log in
 export const login = formData => async dispatch => {
    try {
-      const { data } = await axios.post('/api/auth', formData); // webtoken
+      const { data } = await axios.post('/api/auth', formData); // data is an object with a property named token
 
       dispatch({
          type: LOGIN_SUCCESS,
@@ -46,16 +45,13 @@ export const login = formData => async dispatch => {
       const { errors } = err.response.data;
 
       if(errors) {
-         errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+         errors.forEach(error => dispatch(addAlert(error.msg, 'danger')));
       }
       dispatch({ type: LOGIN_FAIL });
    }
 }
 // load user
 export const loadUser = () => async dispatch => {
-   if(localStorage.token) {
-      setAuthToken(localStorage.token);
-   }
    try {
       const { data } = await axios.get('/api/auth'); // logged in user
       

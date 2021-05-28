@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setAlert } from '../../actions/alert';
+import { addAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
-   const [ formData, setFormData ] = useState({
+const Register = ({ addAlert, register, isAuthenticated }) => {
+   const [formData, setFormData] = useState({
       name: '',
       email: '',
       password: '',
@@ -19,8 +19,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
    const onSubmit = e => {
       e.preventDefault();
       if(password !== password2) {
-         setAlert("Passwords don't match", "danger");
-      }
+         addAlert("Passwords don't match", "danger");
+      } 
       else {
          register({ name, email, password });
       }
@@ -33,14 +33,14 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <Fragment>
          <h1 className="large text-primary">Sign Up</h1>
          <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
-         <form className="form" onSubmit={e => onSubmit(e)}>
+         <form className="form" onSubmit={onSubmit}>
             <div className="form-group">
                <input 
                   type="text" 
                   placeholder="Name" 
                   name="name"
                   value={name}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                   required 
                />
             </div>
@@ -50,7 +50,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   placeholder="Email Address" 
                   name="email"
                   value={email}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
                <small className="form-smallText">
                   If you want a profile image, use a
@@ -64,7 +64,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   name="password"
                   minLength="6"
                   value={password}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
             <div className="form-group">
@@ -74,7 +74,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   name="password2"
                   minLength="6"
                   value={password2}
-                  onChange={e => onChange(e)} 
+                  onChange={onChange} 
                />
             </div>
             <input type="submit" className="btn btn--primary" value="Register" />
@@ -86,4 +86,4 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
    );   
 }
 const mapStateToProps = state => ({ isAuthenticated: state.auth.isAuthenticated });
-export default connect(mapStateToProps, { setAlert, register })(Register);
+export default connect(mapStateToProps, { addAlert, register })(Register);

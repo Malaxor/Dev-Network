@@ -17,26 +17,26 @@ const INITIAL_STATE = {
    error: {}
 };
 
-const profileReducer = (state = INITIAL_STATE, action) => {
-   switch(action.type) {
+const profileReducer = (state = INITIAL_STATE, { type, payload }) => {
+   switch(type) {
       case GET_PROFILE:
       case CREATE_PROFILE:
       case UPDATE_PROFILE:
       return {
          ...state,
-         profile: action.payload,
+         profile: payload,
          loading: false
       };
       case GET_PROFILES:
       return {
          ...state,
-         profiles: action.payload,
+         profiles: payload,
          loading: false
       };
       case GET_REPOS:
       return {
          ...state,
-         repos: action.payload,
+         repos: payload,
          loading: false
       };
       case CLEAR_PROFILE:
@@ -50,7 +50,7 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       return {
          ...state,
          loading: false,
-         error: action.payload,
+         error: payload,
          profile: null
       };
       default:

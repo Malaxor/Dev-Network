@@ -19,10 +19,14 @@ import Post from './components/post/Post';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 import { loadUser } from './actions/auth';
+import setAuthToken from './utils/setAuthToken';
 import './styles/styles.scss';
 
 const App = () => { 
    useEffect(() => {
+      if(localStorage.token) {
+         setAuthToken(localStorage.token);
+      }
       store.dispatch(loadUser());
    }, []);
    

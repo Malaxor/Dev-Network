@@ -12,17 +12,17 @@ const Dashboard = ({ getCurrentUserProfile, auth: { user }, profile: { profile, 
       getCurrentUserProfile();
    }, [getCurrentUserProfile]);
    
-   if(loading && profile === null) {
+   if(loading) {
       return <Spinner />;
    }
    return (
       <Fragment>
          <h1 className="large text-primary">Dashboard</h1>
          <p className="lead">
-            <i className="fa fa-user"> Welcome, {user && user.name}</i>
+            <i className="fa fa-user">{user ? `Welcome, ${user.name}` : `Welcome`}</i>
          </p>
-         {profile !== null 
-         ? <Fragment>
+         {profile 
+         ?  <Fragment>
                <DashboardActions />
                <Experience experience={profile.experience} />
                <Education education={profile.education} />
@@ -31,12 +31,12 @@ const Dashboard = ({ getCurrentUserProfile, auth: { user }, profile: { profile, 
                      <i className="fas fa-user-minus"></i> Delete My Account
                   </button>
                </div>
-            </Fragment> 
-         : <Fragment>
+            </Fragment>
+         :  <Fragment>
                <p>Please create your profile.</p>
                <Link to="/create-profile" className="btn btn--primary my-8">Create Profile</Link>
             </Fragment>
-         } 
+         }
       </Fragment>
    );
 }
