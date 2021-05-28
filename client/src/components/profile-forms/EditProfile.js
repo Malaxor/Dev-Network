@@ -28,13 +28,13 @@ const EditProfile = ({ profile: { profile }, createProfile, getCurrentUserProfil
          const profileData = { ...formData };
 
          for(let key in profile) {
-            // avoids the _id property on the profile object
+            // avoids the _id property and missing keys on the profile object
             if(key in profileData) {
                profileData[key] = profile[key];
             }
          }
          for(let key in profile.social) {
-            // avoids the _id property on the profile.social object
+            // avoids the _id property and missing keys on the profile.social object
             if(key in profileData) {
                profileData[key] = profile.social[key];
             }

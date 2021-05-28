@@ -16,24 +16,16 @@ router.post('/', [ auth, validateProfile() ], async (req, res) => {
    if(!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
    }
-   const { status, skills, twitter, facebook, instagram, youtube, linkedin, ...rest } = req.body;
+   const { skills, website, twitter, facebook, instagram, youtube, linkedin, ...rest } = req.body;
    // status and skills are required fields
    const profileFields = {
       user: req.user.id,
       skills: skills.split(',').map(skill => skill.trim()),
-      status
+      website: website ? normalize(website, { forceHttps: true }) : '',
+      ...rest
    };
-   // rest is an object containing the remaining req.body properites (profile properties)
-   for(const [key, value] of Object.entries(rest)) {
-      if(key !== 'website' && value) {
-         profileFields[key] = value;
-      }
-      else if(key === 'website' && value) {
-         profileFields[key] = normalize(value, { forceHttps: true });
-      }
-   }
-
    const socialFields = { youtube, twitter, facebook, instagram, linkedin };
+
    for(const [key, value] of Object.entries(socialFields)) {
       if(value) {
          socialFields[key] = normalize(value, { forceHttps: true });
