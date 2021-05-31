@@ -53,7 +53,7 @@ router.post('/', [ auth, validateProfile() ], async (req, res) => {
 // @route PUT /api/profile/experience
 // &desc Add experience to profile
 // &access Private
-router.put('/experience', [ auth, validateExperience() ], async (req, res) => {
+router.put('/experience', [auth, validateExperience()], async (req, res) => {
    const errors = validationResult(req);
    if(!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -61,7 +61,7 @@ router.put('/experience', [ auth, validateExperience() ], async (req, res) => {
 
    try {
       const profile = await Profile.findOne({ user: req.user.id });
-      profile.experience.unshift(req.body);
+      profile.experience = [{ ...req.body }, ...profile.experience];
       await profile.save();
       res.json(profile);
    }
@@ -96,7 +96,7 @@ router.put('/education', [ auth, validateEducation() ], async (req, res) => {
 
    try {
       const profile = await Profile.findOne({ user: req.user.id });
-      profile.education.unshift(req.body);
+      profile.education = [{ ...req.body }, ...profile.education]
       await profile.save();
       res.json(profile);
    }

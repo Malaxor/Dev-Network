@@ -126,7 +126,7 @@ router.put('/:post_id/unlike', auth, async (req, res) => {
 // @route POST /api/posts/:post_id/comment
 // @desc Comment on a post
 // @access Private
-router.post('/:post_id/comment', [ auth, validateComment() ], async (req, res) => {
+router.post('/:post_id/comment', [auth, validateComment()], async (req, res) => {
    const errors = validationResult(req);
    if(!errors.isEmpty()) {
       res.status(400).json({ errors: errors.array() });
@@ -135,13 +135,13 @@ router.post('/:post_id/comment', [ auth, validateComment() ], async (req, res) =
    try {
       const user = await User.findById(req.user.id).select('-password -email');
       const post = await Post.findById(req.params.post_id);
-      const newComment =  {
+      const newComment = {
          user: req.user.id,
          author: user.name,
          content: req.body.content,
          avatar: user.avatar,
       };
-      post.comments.unshift(newComment);
+      post.comments = [newComment, ...post.comments];
       await post.save();
       res.json(post.comments);
    }
